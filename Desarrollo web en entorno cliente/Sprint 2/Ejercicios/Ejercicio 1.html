@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let cadena= prompt("Introduce una cadena para contar las palabras que se repitan");
+        
+        function contar(cadena) {
+          let apariciones = 0;          
+          let busqueda=prompt("Que palabra quieres buscar");
+          let arr = cadena.split(" ");
+           for (let i=0; i<arr.length; i++) {
+               if (busqueda===arr[i]) {
+                    apariciones++;
+               } 
+           }
+           if(apariciones==0) {
+               return console.log("Hay 0 apariciones")
+           }
+           
+           return console.log("La palabra ", busqueda , " aparece", apariciones, " veces");
+        }
+
+        contar(cadena);
+    </script>
+</body>
+</html>

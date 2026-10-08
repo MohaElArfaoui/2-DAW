@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint 1</title>
+</head>
+<body>
+     <div id="ejercicio3">
+        <script>
+
+            function matrizApariencia () {
+                
+                let matriz= Number(prompt("Introduce la dimension de la matriz"));
+                let array = [matriz];
+             
+              for (let i = 0; i < matriz; i++) {
+                array[i]=[];
+                for (let j = 0; j < matriz; j++) {       
+                    array[i][j]= "O" + " "
+              } 
+            }
+        
+              for (let i = 0; i < matriz; i++) {
+                for (let j = 0; j < matriz; j++) {
+                  document.write(array[i][j]);
+                }
+                document.write("<br>");
+              }
+    
+        }
+        matrizApariencia();
+
+        </script>
+
+     </div>
+   
+</body>
+</html>

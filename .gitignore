@@ -1,0 +1,8 @@
+node_modules/
+target/
+dist/
+.angular/
+*.iso
+*.zip
+.env
+.ipynb_checkpoints/

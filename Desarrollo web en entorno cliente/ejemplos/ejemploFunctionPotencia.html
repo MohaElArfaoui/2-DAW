@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let x = Number(prompt("Escribe un numero"));
+        let n = Number(prompt("Escribe la potencia"));
+
+        function pow(x,n) {
+            let resultado=1;
+            if(n===0) {
+                return resultado=1;
+            } else {
+                for (let i=0; i<n; i++) {
+                    resultado*=x
+                }
+               return resultado;
+            }
+        }
+
+       let resultadoFinal = pow(x,n);
+
+       alert("El resultado final es: " + resultadoFinal);
+    </script>
+</body>
+</html>

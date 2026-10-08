@@ -1,0 +1,90 @@
+h1 {
+    color: #008080;
+}
+
+h2 {
+    color: #0000ff;
+}
+
+strong {
+    color: red;
+}
+
+a {
+    color: red;
+}
+
+p a em {
+    font-style: italic;
+    color: #0000ff;
+}
+
+p > a {
+    color: red;
+}
+
+.destacado {
+    color: orange;
+}
+
+.especial {
+    color: purple;
+}
+
+#especial {
+    color: purple;
+}
+
+div p {
+    color: olive;
+}
+
+div p a {
+    color: green;
+}
+
+caption {
+    color: #0000ff;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid black;
+    padding: 4px;
+}
+
+table thead th.especial {
+    color: orange;
+}
+
+table tbody th {
+    color: red;
+}
+
+table tbody th.especial {
+    color: orange;
+}
+
+table tbody td {
+    color: green;
+}
+
+table tbody td em {
+    color: green;
+}
+
+table tbody td strong {
+    color: orange;
+}
+
+table tfoot th {
+    color: red;
+}
+
+th[scope="row"] {
+    color: red;
+}

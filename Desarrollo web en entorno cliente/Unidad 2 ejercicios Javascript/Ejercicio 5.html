@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //Cuadrado lleno
+      /*let array = [];
+      const tamanio = 5;
+      const asterisco = "*";
+
+      for (let i = 0; i < tamanio; i++) {
+        array[i]=[];
+        for (let j = 0; j < tamanio; j++) {
+          array[i][j] = asterisco + " ";
+        }
+      }
+
+      for (let i = 0; i < tamanio; i++) {
+        for (let j = 0; j < tamanio; j++) {
+          document.write(array[i][j]);
+        }
+        document.write("<br>");
+      }*/
+
+      /*Piramide invertida
+      let array = [];
+      let tamanioLargo = 9;
+      const tamanioVertical= 5;
+      const asterisco = "*";
+
+      for (let i = 0; i < tamanioVertical; i++) {
+        array[i]=[];
+        for (let j = 0; j < tamanioLargo; j++) {
+          array[i][j] = asterisco + " ";
+        }
+        tamanioLargo=tamanioLargo-2;
+      }
+
+      for (let i = 0; i < tamanioVertical; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+          document.write(array[i][j]);
+        }
+        document.write("<br>");
+      }*/
+
+      /*Cuadrado hueco
+      let array = [];
+      let tamanioLargo = 5;
+      const tamanioVertical = 5;
+      const asterisco = "*";
+
+      for (let i = 0; i < tamanioVertical; i++) {
+        array[i] = [];
+        for (let j = 0; j < tamanioLargo; j++) {
+          if (i == 0 || i == 4 || j == 4 || j == 0) {
+            array[i][j] = asterisco + " ";
+          } else {
+            array[i][j] = "  ";
+          }
+        }
+      }
+      document.write("<pre>");
+
+      for (let i = 0; i < tamanioVertical; i++) {
+        for (let j = 0; j < tamanioVertical; j++) {
+          document.write(array[i][j]);
+        }
+        document.write("<br>");
+      }
+      document.write("<pre>");*/
+
+      //Diamante;
+
+      let array = [];
+      let tamanioLargo = 1;
+      const tamanioVertical = 9;
+      const asterisco = "*";
+
+      for (let i = 0; i < tamanioVertical; i++) {
+        array[i] = [];
+        for (let j = 0; j < tamanioLargo; j++) {
+          array[i][j] = asterisco + " ";
+        }
+        if (i < 4) {
+          tamanioLargo += 2;
+        } else {
+          tamanioLargo -= 2;
+        }
+      }
+
+      for (let i = 0; i < tamanioVertical; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+          document.write(array[i][j]);
+        }
+        document.write("<br>");
+      }
+    </script>
+  </body>
+</html>

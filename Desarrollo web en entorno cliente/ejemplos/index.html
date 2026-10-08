@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let n = prompt ("introduzca un número");
+      if (n < 0) {
+              alert ("El factorial no está definido para números negativos.");
+              }
+      if (n === 0) {
+              alert (1);
+              }
+      if (n > 1) {
+          let resultado = 1;
+              for (let i = 2; i <= n; i++) {
+                  resultado *= i;
+                  }
+              alert (resultado);
+                }
+    </script>
+  </body>
+</html>
