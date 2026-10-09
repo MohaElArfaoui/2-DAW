@@ -1,0 +1,25 @@
+package com.daw.controllers;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.daw.controllers.DTO.Usuario;
+
+import jakarta.validation.Valid;
+
+@RestController
+@Validated
+@CrossOrigin(origins = "*")
+
+public class ControladorDeAplicacion {
+	
+	@PostMapping("/usuarios")
+	public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario){
+		return ResponseEntity.ok().body("Usuario creado");
+		
+	}
+}

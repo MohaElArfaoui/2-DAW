@@ -1,0 +1,75 @@
+package com.ejemplo.contactos.controller;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ejemplo.contactos.model.Contacto;
+
+
+import com.ejemplo.contactos.service.ContactoService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@CrossOrigin(origins = "*")
+@RestController
+@Validated
+@RequestMapping("/api")
+public class ControladorContactos {
+
+	@Autowired //En lugar de que tú crees manualmente los objetos con la palabra clave 
+	//new dentro de tus clases, el contenedor de Spring busca el objeto necesario (un Bean) y lo conecta o inserta automáticamente donde lo requieras
+	private ContactoService servicio;
+
+	@GetMapping("/contactos")
+	public ResponseEntity<List<Contacto>> buscarContactos(
+			@NotNull @Size(min=5)@RequestParam(value="nombre") String nombre,
+			@RequestParam(value = "apellido", required = false) String apellidos,
+			@RequestParam(value = "email ", required = false) String email,
+			@RequestParam(value = "fechaNacimiento", required = false) LocalDate fechaNacimiento,
+			@RequestParam(value = "departamento", required = false) String departamento) {
+		List<Contacto> resultado = servicio.buscar(nombre, apellidos, email, fechaNacimiento, departamento);
+		return ResponseEntity.ok().body(resultado);
+	}
+
+	@PostMapping("/contactos")
+	public ResponseEntity<Contacto> crearContacto(@Valid @RequestBody Contacto contacto) {
+		return ResponseEntity.ok().body(servicio.crear(contacto));
+
+	}
+
+	@PutMapping("/contactos/{id}")
+	public ResponseEntity<Contacto> modificarContacto(@PathVariable("id") Long idContacto,
+			@RequestBody Contacto contacto) {
+		Optional<Contacto> resultado = servicio.modificar(idContacto, contacto);
+
+		if (resultado.isPresent()) {
+			return ResponseEntity.ok().body(resultado.get());
+		}
+
+		return ResponseEntity.notFound().build();
+	}
+
+	@DeleteMapping("/contactos/{id}")
+	public ResponseEntity<Boolean> eliminarContacto(@PathVariable("id") Long idContacto) {
+		return ResponseEntity.ok().body(servicio.eliminar(idContacto));
+
+	}
+}

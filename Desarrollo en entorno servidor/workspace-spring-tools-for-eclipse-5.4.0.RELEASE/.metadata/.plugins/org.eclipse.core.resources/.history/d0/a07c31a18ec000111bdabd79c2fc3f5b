@@ -1,0 +1,28 @@
+package com.daw.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.daw.datamodel.entities.Libro;
+import com.daw.services.LibroService;
+
+@RestController
+
+public class ControladorLibro {
+	
+	@Autowired
+	private LibroService servicio;
+	
+	@GetMapping("/api/v1/libros")
+	public ResponseEntity<List<Libro>> buscarLibros(@RequestParam(value="genero,", required = false)
+	 String genero, @RequestParam(value="autor", required=false)String autor){
+		List<Libro> resultado = servicio.listar(autor, genero);
+		return ResponseEntity.ok().body(resultado);
+	}
+	
+}
