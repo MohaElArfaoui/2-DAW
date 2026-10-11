@@ -1,11 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <script>
+      /*Escribe una función checkSpam(str) que devuelva true si str contiene ‘viagra’ o ‘XXX’,
+de lo contrario false.*/
+      let cadena = prompt(
+        "Introduce una cadena, si no contiene viagra o XXX devolvera false",
+      );
+
+      /**
+       * @param {string} cadena
+       */
+      function checkSpam(cadena) {
+        let texto = cadena.toLowerCase();
+
+        return texto.includes("xxx") || texto.includes("viagra");
+      }
+      console.log(checkSpam(cadena));
+    </script>
+  </body>
 </html>

@@ -1,11 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <script>
+      /*Escribe la función camelize(str) que convierta palabras separadas por guión como “micadena-corta” en palabras con mayúscula “miCadenaCorta”.
+Esto sería: remover todos los guiones y que cada palabra después de un guión
+comience con mayúscula.*/
+      let cadenaGuion = prompt(
+        "Introduce una cadena separadas por guiones(xxxx-xxxx-xxxx)",
+      );
+      
+      /**
+       * @param {string} cadenaGuion
+       */
+      function cameliza(cadenaGuion) {
+        let cadenaCameliza="";
+        let cadenaSeparada=cadenaGuion.split("-")
+        if(cadenaGuion.includes("-")){
+          for(let i=0; i<cadenaSeparada.length; i++){
+            let palabraArray=cadenaSeparada[i];
+            if(i==0) {
+                cadenaCameliza+=palabraArray.slice(0);
+            } else {
+                cadenaCameliza+=palabraArray.slice(0,1).toUpperCase() + palabraArray.slice(1);
+            }
+          }
+        } else {
+            return console.log("No contiene guiones");
+        }
+        return cadenaCameliza;
+  
+      }
+      console.log(cameliza(cadenaGuion));
+    </script>
+  </body>
 </html>

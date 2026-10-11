@@ -1,11 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <script>
+      /*Escribe una función ucFirst(str) que devuelva el string str con el primer carácter en
+mayúscula.*/
+      let cadena = prompt(
+        "Introduce una cadena en minuscula. Se convertira la primera letra en mayuscula",
+      );
+     
+      function ucFirst(cadena) {
+        let primerLetra = cadena.charAt(0).toUpperCase();
+        let cadenaPrimerCaracterMayus = "";
+
+        cadenaPrimerCaracterMayus += primerLetra;
+        for (let i = 1; i < cadena.length; i++) {
+            cadenaLetra=cadena.charAt(i)
+          cadenaPrimerCaracterMayus += cadenaLetra;
+        }
+        return cadenaPrimerCaracterMayus;
+      }
+      console.log(ucFirst(cadena));
+    </script>
+  </body>
 </html>

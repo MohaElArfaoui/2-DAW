@@ -6,6 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        /*. Tenemos un costo en forma de “$120”. Es decir: el signo de dólar va primero y luego el
+número. Crea una función extractCurrencyValue(str) que extraiga el valor numérico de
+dicho string y lo devuelva.*/
+      
+        let cadenaNumerica=prompt("Introduce un valor numero con el signo $ delante");
+
+          /**
+         * @param {string} cadenaNumerica
+         */
+        function extractCurrencyValue(cadenaNumerica) {
+            let numero = Number(cadenaNumerica.substring(1));
+            return numero;
+        }
+        console.log(extractCurrencyValue(cadenaNumerica));
+    </script>
 </body>
 </html>

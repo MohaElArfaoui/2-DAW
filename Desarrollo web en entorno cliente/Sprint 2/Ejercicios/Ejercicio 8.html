@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*Escribe la función sortByAge(users) que cree un array de objetos con la
+propiedad age y los ordene según age.*/
+
+let jhon={name: "Jhon", age:25};
+let pete={name: "Pete", age:30};
+let mary={name: "Mary", age:28};
+
+let users=[pete, jhon, mary];
+
+function sortByAge(users) {
+  users.sort(function (a, b) {
+    if (a.age > b.age) return 1;
+    if (a.age == b.age) return 0;
+    if (a.age < b.age) return -1;
+  });
+  return users;
+}
+console.log(sortByAge(users));
+    </script>
+  </body>
+</html>

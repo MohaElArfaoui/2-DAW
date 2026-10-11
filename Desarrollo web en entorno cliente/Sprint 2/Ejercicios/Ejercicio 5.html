@@ -1,11 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <script>
+      let cadena = prompt("Introduce una cadena");
+      let maxlength = Number(prompt("Introduce una longitud maxima"));
+/*Crea una función truncate(str, maxlength) que verifique la longitud de str y, si
+excede maxlength reemplaza el final de str con el carácter de puntos suspensivos "…",
+para hacer su longitud igual a maxlength.*/
+    /**
+    * @param {string} cadena
+    * @param {number} maxlength
+    */
+   
+      function truncate(cadena, maxlength) {
+        let cadenaCortada="";
+        if (cadena.length > maxlength) {
+          
+           cadenaCortada=cadena.substring(0, maxlength) + "…";
+        } else {
+          return cadena;
+        }
+        return cadenaCortada;
+      }
+      console.log(truncate(cadena, maxlength))
+    </script>
+  </body>
 </html>
