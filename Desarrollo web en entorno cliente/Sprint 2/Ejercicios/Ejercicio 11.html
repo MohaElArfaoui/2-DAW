@@ -12,6 +12,30 @@ nombre tiene de longitud 5, el array resultante estará ordenador por la clave n
 (name).
 La estructura del array de entrada será: (esto es un ejemplo, podéis y debéis modificar
 los datos para hacer pruebas).*/
+
+let users = [
+    { name: "Pedro", age: 30 },
+    { name: "Ana", age: 25 },
+    { name: "Laura", age: 28 },
+    { name: "Carlos", age: 35 },
+    { name: "David", age: 22 }
+];
+ 
+function filtrar(users) {
+  let user=[];
+  for (let i=0; i<users.length; i++) {
+  if(users[i].name.length==5) {
+    user.push(users[i]);
+  }
+}
+user.sort(function(a, b) {
+  if (a.name>b.name) return 1;
+  if (a.name==b.name) return 0;
+  if (a.name<b.name) return -1;
+})
+return user;
+}
+console.log(filtrar(users));
     </script>
   </body>
 </html>

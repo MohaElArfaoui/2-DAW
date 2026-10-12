@@ -13,6 +13,16 @@ Parámetros:
 • year – el año en formato de cuatro dígitos, por ejemplo 2012.
 • month – el mes, de 0 a 11.
 Por ejemplo, getLastDayOfMonth(2012, 1) = 29 (febrero, año bisiesto).*/
+
+let year=Number(prompt("Introduce el año en este de formato de cuatro digitos: Ejemplo 2012"));
+let month=Number(prompt("Introduce un mes, de 0 a 11"));
+
+function getLastDayOfMonth(year, month){
+const diaTruco=0;
+let dia=new Date(year, month+1, diaTruco);
+return dia.getDate();
+}
+console.log(getLastDayOfMonth(year, month));
     </script>
   </body>
 </html>

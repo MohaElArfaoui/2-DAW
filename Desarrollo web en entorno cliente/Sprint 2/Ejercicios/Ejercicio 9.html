@@ -9,8 +9,34 @@
     <script>
       /*Escribe una función getWeekDay(date) para mostrar el día de la semana en formato
 corto: ‘L’, ‘M’, ‘X’, ‘J’, ‘V’, ‘S’, ‘D’.*/
+      let date = new Date(prompt("Introduce una fecha con este formato:YYYY-MM-DD"));
+      /**
+       * @param {Date} date
+       */
+      function getWeekDay(date) {
+        let diaSemana = date.getDay();
+        let dia = "";
+        if (diaSemana == 0) {
+          dia = "D";
+        } else if (diaSemana == 1) {
+          dia = "L";
+        } else if (diaSemana == 2) {
+          dia = "M";
+        } else if (diaSemana == 3) {
+          dia = "X";
+        } else if (diaSemana == 4) {
+          dia = "J";
+        } else if (diaSemana == 5) {
+          dia = "V";
+        } else if (diaSemana == 6) {
+          dia = "S";
+        } else {
+          return "Formato incorrecto";
+        }
+        return dia;
+      }
 
-
+      console.log(getWeekDay(date));
     </script>
   </body>
 </html>
