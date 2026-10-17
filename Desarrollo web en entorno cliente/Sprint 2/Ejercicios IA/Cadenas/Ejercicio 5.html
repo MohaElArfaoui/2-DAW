@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*camelize(str) — Convierte guiones a camelCase.
+camelize("background-color") → "backgroundColor"
+camelize("-webkit-transition") → "WebkitTransition"*/
+function ucFirst(palabra) {
+  return palabra.slice(0,1).toUpperCase() + palabra.substring(1);
+}
+let str=prompt("Introduce la cadena");
+/**
+ * @param {string} str
+ */
+function camelize(str) {
+  let cadenaSeparada=str.split("-");
+  let cadenaCamel=cadenaSeparada[0]; 
+  
+  for (let i = 1; i < cadenaSeparada.length; i++) {
+     cadenaCamel += ucFirst(cadenaSeparada[i]);
+  }
+  return cadenaCamel;
+
+}
+console.log(camelize(str));
+    </script>
+  </body>
+</html>

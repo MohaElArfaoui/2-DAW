@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+            /*ucWords(str) — Primera letra de cada palabra en mayúscula. Reutiliza tu ucFirst.
+      ucWords("hola mundo cruel") → "Hola Mundo Cruel"*/
+
+      let cadena =prompt("Introduce una cadena en minuscula. Se pondra cada comienzo de palabra en mayuscula")
+      
+      function ucFirst(palabra){
+        return palabra.slice(0,1).toUpperCase() + palabra.substring(1) + " ";
+      }
+      
+      /**
+       * @param {string} cadena
+       */
+      function ucWords(cadena){
+        let cadenaSeparada=cadena.split(" ");
+        let cadenaMayus="";
+        for (let i = 0; i < cadenaSeparada.length; i++) {
+           cadenaMayus += ucFirst(cadenaSeparada[i]) + " ";
+        }
+        return cadenaMayus.trim();
+
+      }
+      console.log(ucWords(cadena));
+      /*function ucFirst(cadena) {
+      let cadenaSeparada=cadena.split(" ");
+      let cadenaMayus="";
+      for (let i = 0; i < cadenaSeparada.length; i++) {
+        let palabra = cadenaSeparada[i];
+        cadenaMayus += palabra.slice(0,1).toUpperCase() + palabra.substring(1) + " ";
+
+      }
+     
+      return cadenaMayus.trim();
+      }
+      console.log(ucFirst(cadena));*/
+    </script>
+  </body>
+</html>

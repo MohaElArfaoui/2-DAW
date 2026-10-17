@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*sumaYMedia(arr) — Devuelve un objeto { suma, media }. Hazlo primero con for y luego con reduce.*/
+
+      let arr=[4, 8, 15, 16, 23];
+
+
+      function sumaYMedia(arr) {
+        let suma=0;
+        let media=0;
+        for (let i = 0; i < arr.length; i++) {
+          let num = arr[i];
+          suma+=num;
+        }
+        media=suma/arr.length;
+        return {suma: + suma, media: media }; //devolucion en objeto
+      }
+      console.log(sumaYMedia(arr));
+    </script>
+  </body>
+</html>

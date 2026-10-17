@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*truncate(str, maxlength) — Si la cadena supera maxlength, la corta y añade "…" para que el total mida exactamente maxlength.
+truncate("Hola a todos los presentes", 10) → "Hola a to…"
+truncate("Hola", 10) → "Hola"*/
+let str=prompt("Introduce una cadena");
+const maxlength=Number(prompt("Introduce una longitud maxima. Si la supera la frase se cortara."))
+/**
+ *@param {string} str
+ */ 
+function truncate(str, maxlength) {
+  let puntos="…";
+if(str.length>maxlength) {
+  str=str.substring(0, maxlength-1) + puntos;
+} 
+return str;
+}
+console.log(truncate(str, maxlength));
+    </script>
+  </body>
+</html>

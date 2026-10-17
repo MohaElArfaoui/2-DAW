@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*sinDuplicados(arr) — Devuelve el array sin repetidos.
+sinDuplicados(["a", "b", "a", "c", "b"]) → ["a", "b", "c"]*/
+let arr=["a", "b", "a", "c", "b"];
+function sinDuplicados(arr){
+let arrSinDuplicar=[];
+for (let i = 0; i < arr.length; i++) {
+  let letra = arr[i];
+  
+  if(!arrSinDuplicar.includes(letra)){
+    arrSinDuplicar.push(letra);
+  }
+}
+return arrSinDuplicar;
+}
+console.log(sinDuplicados(arr));
+    </script>
+  </body>
+</html>

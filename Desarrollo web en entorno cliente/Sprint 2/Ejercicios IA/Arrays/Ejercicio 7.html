@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*filtrarRango(arr, a, b) — Devuelve un array nuevo solo con los valores entre a y b (inclusive), sin modificar el original.
+filtrarRango([5, 3, 8, 1], 1, 4) → [3, 1]*/
+let arr=[5, 3, 8,1]
+let a=Number(prompt("Introduce el rango minimo"));
+let b=Number(prompt("Introduce el rango maximo"));
+function filtrarRango(arr, a, b ){
+  let arrFiltrado=[];
+for (let i = 0; i < arr.length; i++) {
+  let numero = arr[i];
+  if(numero>=a && numero<=b) {
+    arrFiltrado.push(numero);
+  }
+}
+return arrFiltrado;
+}
+console.log(filtrarRango(arr, a, b));
+    </script>
+  </body>
+</html>

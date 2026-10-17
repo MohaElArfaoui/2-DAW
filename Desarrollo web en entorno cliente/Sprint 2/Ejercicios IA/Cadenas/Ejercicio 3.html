@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*contarVocales(str) — Devuelve cuántas vocales tiene, sin distinguir mayúsculas.
+contarVocales("Murciélago") → 5 (bonus: que cuente también las tildes)*/
+let cadena=prompt("Introduce una cadena para contar vocales");
+/**
+ * @param {string} cadena
+ */
+ function contarVocales(cadena) {
+  let vocales='aeiouáéíóúäëïöü';
+  let cadenaMin=cadena.toLowerCase();
+  let contador=0;
+  for (let i = 0; i < cadenaMin.length; i++) {
+    let letra= cadenaMin[i];
+    if(vocales.includes(letra)) {
+      contador+=1;
+    }
+  }
+  return contador;
+ }
+ console.log(contarVocales(cadena));
+ 
+    </script>
+  </body>
+</html>

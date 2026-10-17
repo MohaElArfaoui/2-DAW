@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*ordenarPorLongitud(arr) — Ordena palabras de más corta a más larga con sort y una función comparadora.*/
+      let arr=["ordenador", "sol", "casa", "elefante", "pez", "montaña", "luz", "árbol"];
+/**
+ * @param {string} arr
+ */ 
+      function ordenarPorLongitud(arr) {
+        let arrOrdenado=arr.slice();
+
+        arrOrdenado.sort(function(a,b){
+          if(a.length>b.length) return 1;
+          if(a.length==b.length) return 0;
+          if(a.length<b.length) return -1;
+    
+        })
+  
+          return arrOrdenado;
+
+      }
+
+      console.log(ordenarPorLongitud(arr));
+    </script>
+  </body>
+</html>

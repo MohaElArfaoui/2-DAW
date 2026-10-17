@@ -7,13 +7,16 @@
 </head>
 <body>
     <script>
+        /*Realizar una función denominada showABC() que muestre los números naturales
+comprendidos entre 65 y 220 en sus correspondientes caracteres del alfabeto.*/
         function showABC() {
-            let numero=65;
-            for (let i=0; i<=numero; i++) {
-               alert( String.fromCodePoint(numero[i]));
+            let abecedario = "";
+            // Cada número del 65 al 220 se convierte en su carácter (65 es la "A")
+            for (let i = 65; i <= 220; i++) {
+                abecedario += String.fromCodePoint(i) + " ";
             }
-        
-        }   
+            alert(abecedario.trim());
+        }
         showABC();
     </script>
 </body>

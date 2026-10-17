@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*contarPalabras(str) — Devuelve un objeto con cuántas veces aparece cada palabra (mezcla cadenas y arrays).
+contarPalabras("el perro y el gato") → { el: 2, perro: 1, y: 1, gato: 1 }*/
+let str=prompt("Introduce una frase para contar las palabras");
+
+function contarPalabras(str) {
+  let palabrasSeparadas=str.split(" ");
+  let resultado={};
+  for (let i = 0; i < palabrasSeparadas.length; i++) {
+    let contador=0
+    let clave = palabrasSeparadas[i];
+    for (let j = 0; j < palabrasSeparadas.length; j++) {
+      let palabraComp = palabrasSeparadas[j];
+      if(clave===palabraComp){
+        contador+=1;
+      }
+    }
+    resultado[clave]=contador;
+  }
+return resultado;
+}
+console.log(contarPalabras(str));
+    </script>
+  </body>
+</html>
