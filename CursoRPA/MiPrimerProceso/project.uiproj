@@ -1,0 +1,6 @@
+{
+  "Name": "MiPrimerProceso",
+  "ProjectType": "Process",
+  "Description": "Hola Mundo en UiPath",
+  "MainFile": "Main.xaml"
+}
