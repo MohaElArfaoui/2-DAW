@@ -1,0 +1,83 @@
+### Cliente HTTP de IntelliJ / VS Code (extensión REST Client)
+### Datos: libros 1=Dune(3) 2=Quijote(5) 3=Neuromante(0) | socios 1=Ana 2=Luis(3 prést.) 3=Marta(sancionada)
+
+### OK - Consultar libro
+GET http://localhost:8080/api/libros/1
+
+### 404 LIBRO_NO_ENCONTRADO
+GET http://localhost:8080/api/libros/99
+
+### OK - Consultar socio
+GET http://localhost:8080/api/socios/1
+
+### 404 SOCIO_NO_ENCONTRADO
+GET http://localhost:8080/api/socios/99
+
+### 201 - Crear libro
+POST http://localhost:8080/api/libros
+Content-Type: application/json
+
+{"isbn": "9780000000001", "titulo": "Libro nuevo", "ejemplaresDisponibles": 2}
+
+### 409 ISBN_DUPLICADO
+POST http://localhost:8080/api/libros
+Content-Type: application/json
+
+{"isbn": "9780441172719", "titulo": "Dune otra vez", "ejemplaresDisponibles": 1}
+
+### 400 VALIDACION_ERROR (3 campos erróneos)
+POST http://localhost:8080/api/libros
+Content-Type: application/json
+
+{"isbn": "123", "titulo": "", "ejemplaresDisponibles": 0}
+
+### 400 JSON_INVALIDO
+POST http://localhost:8080/api/libros
+Content-Type: application/json
+
+{"isbn": "9780000000002", "titulo": "Roto",
+
+### 201 - Préstamo correcto (Ana + Dune)
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{"libroId": 1, "socioId": 1}
+
+### 404 SOCIO_NO_ENCONTRADO
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{"libroId": 1, "socioId": 99}
+
+### 404 LIBRO_NO_ENCONTRADO
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{"libroId": 99, "socioId": 1}
+
+### 403 SOCIO_SANCIONADO
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{"libroId": 1, "socioId": 3}
+
+### 409 LIMITE_PRESTAMOS_EXCEDIDO
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{"libroId": 1, "socioId": 2}
+
+### 409 LIBRO_NO_DISPONIBLE
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{"libroId": 3, "socioId": 1}
+
+### 200 - Devolución correcta (préstamo 1 de Luis)
+POST http://localhost:8080/api/prestamos/1/devolucion
+
+### 400 DEVOLUCION_INVALIDA (ejecútala dos veces: la 2ª ya está devuelto)
+POST http://localhost:8080/api/prestamos/1/devolucion
+
+### 400 DEVOLUCION_INVALIDA (no existe)
+POST http://localhost:8080/api/prestamos/99/devolucion
