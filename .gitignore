@@ -6,3 +6,4 @@ dist/
 *.zip
 .env
 .ipynb_checkpoints/
+.metadata/
