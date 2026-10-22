@@ -1,0 +1,40 @@
+/* Estilos que se aplican SIEMPRE (fuera del @media) */
+.head {
+    display: flex;
+    justify-content: center;
+    align-items: center;        
+    padding-bottom: 10%;
+    background-color: brown;
+}
+
+.body {
+    display: flex;
+    justify-content: space-around;
+    background-color: burlywood;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;      
+    padding-top: 10%;
+    background-color: darkcyan;
+}
+
+#caja2, #caja3, #caja4, #caja5, #caja6 {
+    background-color: aqua;
+    padding: 20px;
+}
+
+#caja2, #caja3, #caja4 {
+    border: 1px solid black;
+}
+
+@media (min-width: 1200px) {
+    .head,
+    .body,
+    .footer {
+        max-width: 1200px;
+        margin: 0 auto;          
+}
+}
