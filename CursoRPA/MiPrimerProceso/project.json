@@ -4,6 +4,7 @@
   "description": "Hola Mundo en UiPath",
   "main": "Main.xaml",
   "dependencies": {
+    "UiPath.Excel.Activities": "[2.24.4]",
     "UiPath.System.Activities": "[26.8.2]"
   },
   "webServices": [],

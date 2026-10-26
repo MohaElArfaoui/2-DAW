@@ -1,0 +1,28 @@
+:root { --azul:#1a73e8; --rojo:#d93025; --verde:#188038; --borde:#dadce0; --fondo:#f6f8fa; }
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; background: var(--fondo); margin: 0; color: #202124; }
+main { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+h1 { margin-top: 0; }
+.panel { background: #fff; border: 1px solid var(--borde); border-radius: 8px; padding: 16px; }
+.campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+label { display: flex; flex-direction: column; font-size: 14px; gap: 4px; }
+input, select { padding: 8px; border: 1px solid var(--borde); border-radius: 6px; font: inherit; }
+.acciones { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+button { padding: 8px 16px; border: 1px solid var(--borde); border-radius: 6px; background: #fff; cursor: pointer; font: inherit; }
+button:hover { filter: brightness(.95); }
+.primario { background: var(--azul); border-color: var(--azul); color: #fff; }
+.crear { background: var(--verde); border-color: var(--verde); color: #fff; margin-left: auto; }
+.contador { color: #5f6368; font-size: 14px; }
+.tabla-wrap { overflow-x: auto; background: #fff; border: 1px solid var(--borde); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--borde); }
+th { background: #f1f3f4; font-size: 13px; }
+tr:last-child td { border-bottom: 0; }
+.col-acc { width: 1%; white-space: nowrap; }
+.btn-mod { color: var(--azul); border-color: var(--azul); }
+.btn-del { color: var(--rojo); border-color: var(--rojo); }
+.vacio { text-align: center; color: #5f6368; padding: 24px; }
+dialog { border: 0; border-radius: 10px; padding: 20px; width: min(420px, 92vw); box-shadow: 0 8px 30px rgba(0,0,0,.25); }
+dialog::backdrop { background: rgba(0,0,0,.4); }
+dialog form { display: flex; flex-direction: column; gap: 12px; }
+dialog h2 { margin: 0; }
