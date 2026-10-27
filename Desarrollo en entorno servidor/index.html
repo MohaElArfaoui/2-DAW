@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de contactos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <h1>Gestión de contactos</h1>
+
+    <form id="formBusqueda" class="panel">
+      <div class="campos">
+        <label>Nombre <input id="bNombre" type="text"></label>
+        <label>Apellidos <input id="bApellidos" type="text"></label>
+        <label>Email <input id="bEmail" type="text"></label>
+        <label>Fecha de nacimiento <input id="bFecha" type="date"></label>
+        <label>Departamento
+          <select id="bDepto">
+            <option value="">Todos</option>
+            <option>Dirección</option>
+            <option>Docencia</option>
+            <option>Administración</option>
+            <option>Orientación</option>
+          </select>
+        </label>
+      </div>
+      <div class="acciones">
+        <button type="submit" class="primario">Buscar</button>
+        <button type="button" id="btnLimpiar">Limpiar</button>
+        <button type="button" id="btnCrear" class="crear">Crear</button>
+      </div>
+    </form>
+
+    <p id="contador" class="contador"></p>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Apellidos</th><th>Email</th><th>Fecha de nacimiento</th><th>Departamento</th><th class="col-acc">Acciones</th></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <dialog id="dlg">
+    <form id="formContacto" method="dialog">
+      <h2 id="dlgTitulo"></h2>
+      <input type="hidden" id="cId">
+      <label>Nombre <input id="cNombre" type="text" required></label>
+      <label>Apellidos <input id="cApellidos" type="text" required></label>
+      <label>Email <input id="cEmail" type="email" required></label>
+      <label>Fecha de nacimiento <input id="cFecha" type="date" required></label>
+      <label>Departamento
+        <select id="cDepto" required>
+          <option>Dirección</option>
+          <option>Docencia</option>
+          <option>Administración</option>
+          <option>Orientación</option>
+        </select>
+      </label>
+      <div class="acciones">
+        <button type="submit" class="primario">Guardar</button>
+        <button type="button" id="btnCancelar">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
