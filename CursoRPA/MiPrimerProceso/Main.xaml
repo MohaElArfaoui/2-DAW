@@ -75,14 +75,42 @@
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1921,708.6566666666666" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1921,1256" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[&quot;Antes del Hola Mundo&quot;]" />
-    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="450,123" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Hola Mundo&quot;]" />
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;Despues del Hola Mundo&quot;]" />
+    <Sequence sap2010:Annotation.AnnotationText="Para invocar secuencias uso Invoke Workflow File o arrastro la secuencia a mi secuencia actual&#xA;&#xA;Tres tipos de argumentos &#xA;-Argumentos de entrada&#xA;-Argumentos de salida&#xA;-Argumentos de entrada y salida (in/out)&#xA;&#xA;Ejercicio: &#xA;&#xA;Calculadora (Secuencia principal)&#xA;    Introducir datos&#xA;    Calcular operacion&#xA;     Mostrar resultado&#xA;&#xA;" DisplayName="Argumentos - Explicacion" sap:VirtualizedContainerService.HintSize="650,1233" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:Double" Name="double_resultado" />
+        <Variable x:TypeArguments="x:Double" Name="double_numero1" />
+        <Variable x:TypeArguments="x:Double" Name="double_numero2" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="616,275" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Numero" Title="Introduce tu primer numero" TopMost="False">
+        <ui:InputDialog.Result>
+          <OutArgument x:TypeArguments="x:Double">[double_numero1]</OutArgument>
+        </ui:InputDialog.Result>
+      </ui:InputDialog>
+      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="616,275" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="False" Label="Numero" Title="Introduce tu segundo numero" TopMost="False">
+        <ui:InputDialog.Result>
+          <OutArgument x:TypeArguments="x:Double">[double_numero2]</OutArgument>
+        </ui:InputDialog.Result>
+      </ui:InputDialog>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="07 Switch - copia - Invoke Workflow File (FundamentosProgramacion\07 Switch - copia.xaml)" sap:VirtualizedContainerService.HintSize="616,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="01 FundamentosProgramacion\07 Switch - Calculadora.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <OutArgument x:TypeArguments="x:Double" x:Key="double_resultado_out">[double_resultado]</OutArgument>
+          <InArgument x:TypeArguments="x:Double" x:Key="double_num_2_in">[double_numero2]</InArgument>
+          <InArgument x:TypeArguments="x:Double" x:Key="double_num_1_in">[double_numero1]</InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="616,166" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;EL resultado de la operacion es : &quot; &amp; double_resultado]" />
+    </Sequence>
   </Sequence>
 </Activity>

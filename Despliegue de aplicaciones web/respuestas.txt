@@ -1,0 +1,51 @@
+Aquí tienes las respuestas para el documento. Te recomiendo retocarlas con tus palabras, porque el profesor no acepta texto copiado.
+
+E1
+
+1. ¿Qué zonas lógicas se pueden identificar? Describir su estado.
+
+Git trabaja con tres zonas:
+
+Working directory (directorio de trabajo): es la carpeta del proyecto, donde están los archivos que edito. Al principio, hp01, hp02 y hp03 están aquí sin seguimiento (untracked).
+Staging area (área de preparación o index): es donde coloco con git add los cambios que quiero incluir en el próximo commit. Después del add, los tres ficheros están aquí.
+Repositorio (carpeta .git): es donde Git guarda el historial de commits. Después del commit, los ficheros quedan guardados aquí.
+
+Tras el commit, el working directory y el staging area quedan limpios, sin cambios pendientes, y el repositorio contiene un commit con los tres ficheros.
+
+2. ¿Cómo se deshace el commit? ¿Y el add?
+
+Deshacer el commit: normalmente se usa git reset --soft HEAD~1, que elimina el último commit y deja los archivos en el staging area. Con --hard también se borrarían los cambios. En este caso es el primer commit y no existe un commit anterior (HEAD~1), así que se usa git update-ref -d HEAD, que borra la referencia al commit y mantiene los archivos preparados.
+Deshacer el add: git restore --staged <archivo> saca el archivo del staging area sin borrarlo. Si todavía no hay ningún commit, como aquí, se usa git rm --cached <archivo>.
+
+3. Mostrar todos los commits del repositorio.
+
+Con git log, que muestra cada commit con su hash, autor, fecha y mensaje. Con git log --oneline se ve resumido, un commit por línea.
+
+4. Etiqueta “Trilogía”.
+
+Crear: git tag Trilogía
+Listar: git tag
+Eliminar: git tag -d Trilogía
+E2
+
+URL DEL REPOSITORIO: https://github.com/MohaElArfaoui/ActInd5-Git. Comprueba que coincide con la tuya.
+
+1. Clonar el repositorio, add y commit.
+
+git clone <URL> descarga una copia del repositorio remoto ya vinculada a GitHub. Después copio hp01, hp02 y hp03 y ejecuto git add . y git commit -m "Añadidos hp01, hp02 y hp03".
+
+1.1. Subir los cambios.
+
+git push -u origin main envía los commits al repositorio remoto. origin es el nombre del remoto, main es la rama y -u la deja vinculada para que los siguientes push sean solo git push.
+
+2. Ramas.
+
+Crear: git branch pruebas
+Listar: git branch (el * marca la rama actual)
+Comprobar en cuál estoy: git branch --show-current
+Cambiar de rama: git switch pruebas
+Renombrar: git branch -m pruebas pruebas-renombrada. Se puede renombrar sin estar en ella indicando el nombre antiguo y el nuevo.
+
+3. ¿Cómo se elimina la rama?
+
+Primero hay que salir de ella, porque no se puede borrar la rama actual: git switch main. Después, git branch -d pruebas-renombrada. Si tiene cambios sin fusionar, Git avisa y hay que forzarlo con -D. Si la rama también estuviera en GitHub, se borraría con git push origin --delete pruebas-renombrada.

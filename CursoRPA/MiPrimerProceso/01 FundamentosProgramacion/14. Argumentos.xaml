@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Argumentos" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Argumentos_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="_14__Argumentos" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="_14__Argumentos_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -26,8 +26,6 @@
       <x:String>GlobalVariablesNamespace</x:String>
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>System.Runtime.Serialization</x:String>
-      <x:String>System.Reflection</x:String>
-      <x:String>System.Linq.Expressions</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -58,51 +56,44 @@
       <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
       <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
-      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
-      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
-      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
-      <AssemblyReference>System.Console</AssemblyReference>
-      <AssemblyReference>System.Security.Permissions</AssemblyReference>
-      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
-      <AssemblyReference>System.ComponentModel</AssemblyReference>
-      <AssemblyReference>System.Memory</AssemblyReference>
-      <AssemblyReference>System.Private.Uri</AssemblyReference>
-      <AssemblyReference>System.Collections</AssemblyReference>
-      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
-      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Argumentos" sap:VirtualizedContainerService.HintSize="1927,830.6566666666666" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="_14__Argumentos" sap:VirtualizedContainerService.HintSize="1921,1256" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Argumentos - Explicacion" sap:VirtualizedContainerService.HintSize="650,578" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence sap2010:Annotation.AnnotationText="Para invocar secuencias uso Invoke Workflow File o arrastro la secuencia a mi secuencia actual&#xA;&#xA;Tres tipos de argumentos &#xA;-Argumentos de entrada&#xA;-Argumentos de salida&#xA;-Argumentos de entrada y salida (in/out)&#xA;&#xA;Ejercicio: &#xA;&#xA;Calculadora (Secuencia principal)&#xA;    Introducir datos&#xA;    Calcular operacion&#xA;     Mostrar resultado&#xA;&#xA;" DisplayName="Argumentos - Explicacion" sap:VirtualizedContainerService.HintSize="650,1233" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="str_nombre" />
-        <Variable x:TypeArguments="x:String" Name="str_nombreOut" />
+        <Variable x:TypeArguments="x:Double" Name="double_resultado" />
+        <Variable x:TypeArguments="x:Double" Name="double_numero1" />
+        <Variable x:TypeArguments="x:Double" Name="double_numero2" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign sap:VirtualizedContainerService.HintSize="616,175" sap2010:WorkflowViewState.IdRef="Assign_1">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">[str_nombre]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">["Alicia"]</InArgument>
-        </Assign.Value>
-      </Assign>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="LlamadaSecuencia - Invoke Workflow File (FundamentosProgramacion\LlamadaSecuencia.xaml)" sap:VirtualizedContainerService.HintSize="616,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="FundamentosProgramacion\LlamadaSecuencia.xaml">
+      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="616,275" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Numero" Title="Introduce tu primer numero" TopMost="False">
+        <ui:InputDialog.Result>
+          <OutArgument x:TypeArguments="x:Double">[double_numero1]</OutArgument>
+        </ui:InputDialog.Result>
+      </ui:InputDialog>
+      <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="616,275" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="False" Label="Numero" Title="Introduce tu segundo numero" TopMost="False">
+        <ui:InputDialog.Result>
+          <OutArgument x:TypeArguments="x:Double">[double_numero2]</OutArgument>
+        </ui:InputDialog.Result>
+      </ui:InputDialog>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="07 Switch - copia - Invoke Workflow File (FundamentosProgramacion\07 Switch - copia.xaml)" sap:VirtualizedContainerService.HintSize="616,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="01 FundamentosProgramacion\07 Switch - Calculadora.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_nombre">[str_nombre]</InArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="out_nombre">[str_nombreOut]</OutArgument>
+          <OutArgument x:TypeArguments="x:Double" x:Key="double_resultado_out">[double_resultado]</OutArgument>
+          <InArgument x:TypeArguments="x:Double" x:Key="double_num_2_in">[double_numero2]</InArgument>
+          <InArgument x:TypeArguments="x:Double" x:Key="double_num_1_in">[double_numero1]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="616,166" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;El nombre ahora es: &quot; &amp; str_nombreOut]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="616,166" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;EL resultado de la operacion es : &quot; &amp; double_resultado]" />
     </Sequence>
   </Sequence>
 </Activity>
