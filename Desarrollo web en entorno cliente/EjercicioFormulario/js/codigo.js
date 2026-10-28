@@ -110,5 +110,7 @@ function registrarAlumno(){
 }
 
 function listarAlumno(){
+    const listado=document.getElementById("listado");
+    
 
 }
