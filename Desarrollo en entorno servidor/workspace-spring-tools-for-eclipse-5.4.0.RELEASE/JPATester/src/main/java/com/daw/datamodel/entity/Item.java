@@ -22,39 +22,39 @@ public class Item {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "nombre")
-	private String name;	
+	@Column(name = "name") //aqui va el nombre que hay en la base de datos
+	private String nombre;	
 	
-	@Column(name = "descripcion")
-	private String description;	
+	@Column(name = "description")
+	private String descripcion;	
 	
-	@Column(name = "precio")
-	private BigDecimal price;	
+	@Column(name = "price")
+	private BigDecimal precio;	
 	
-	@Column(name = "cantidad")
-	private Integer quantity;	
+	@Column(name = "quantity")
+	private Integer cantidad;	
 	
-	@Column(name = "fechaDeCreacion")
-	private LocalDateTime created_at;
+	@Column(name = "created_at")
+	private LocalDateTime fechaDeCreacion;
 	
-	@Column(name = "fechaDeActualizacion")
-	private LocalDateTime updated_at;	
+	@Column(name = "updated_at")
+	private LocalDateTime fechaDeActualizacion;	
 	
-	@Column(name = "estaDisponible")
-	private Boolean is_available;	
+	@Column(name = "is_available")
+	private Boolean estaDisponible;	
 	
-	@Column(name = "valoración")
-	private Float rating;
+	@Column(name = "rating")
+	private Float valoracion;
 	
-	@Column(name = "fechaDeFabricacion")
-	private LocalDate manufacture_date;	
+	@Column(name = "manufacture_date")
+	private LocalDate fechaDeFabricacion;	
 	
-	@Column(name = "fechaDeCaducidad")
-	private LocalDateTime expiry_date;
+	@Column(name = "expiry_date")
+	private LocalDateTime fechaDeCaducidad;
 	
-	@Column(name = "categoria")
+	@Column(name = "category")
 	@Enumerated(EnumType.STRING)
-	private Category category;
+	private Category categoria;
 
 	public Long getId() {
 		return id;
@@ -64,96 +64,92 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getPrecio() {
+		return precio;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public Integer getCantidad() {
+		return cantidad;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	public LocalDateTime getFechaDeCreacion() {
+		return fechaDeCreacion;
 	}
 
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
+		this.fechaDeCreacion = fechaDeCreacion;
 	}
 
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
+	public LocalDateTime getFechaDeActualizacion() {
+		return fechaDeActualizacion;
 	}
 
-	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+	public void setFechaDeActualizacion(LocalDateTime fechaDeActualizacion) {
+		this.fechaDeActualizacion = fechaDeActualizacion;
 	}
 
-	public Boolean getIs_available() {
-		return is_available;
+	public Boolean getEstaDisponible() {
+		return estaDisponible;
 	}
 
-	public void setIs_available(Boolean is_available) {
-		this.is_available = is_available;
+	public void setEstaDisponible(Boolean estaDisponible) {
+		this.estaDisponible = estaDisponible;
 	}
 
-	public Float getRating() {
-		return rating;
+	public Float getValoracion() {
+		return valoracion;
 	}
 
-	public void setRating(Float rating) {
-		this.rating = rating;
+	public void setValoracion(Float valoracion) {
+		this.valoracion = valoracion;
 	}
 
-	public LocalDate getManufacture_date() {
-		return manufacture_date;
+	public LocalDate getFechaDeFabricacion() {
+		return fechaDeFabricacion;
 	}
 
-	public void setManufacture_date(LocalDate manufacture_date) {
-		this.manufacture_date = manufacture_date;
+	public void setFechaDeFabricacion(LocalDate fechaDeFabricacion) {
+		this.fechaDeFabricacion = fechaDeFabricacion;
 	}
 
-	public LocalDateTime getExpiry_date() {
-		return expiry_date;
+	public LocalDateTime getFechaDeCaducidad() {
+		return fechaDeCaducidad;
 	}
 
-	public void setExpiry_date(LocalDateTime expiry_date) {
-		this.expiry_date = expiry_date;
+	public void setFechaDeCaducidad(LocalDateTime fechaDeCaducidad) {
+		this.fechaDeCaducidad = fechaDeCaducidad;
 	}
 
-	public Category getCategory() {
-		return category;
+	public Category getCategoria() {
+		return categoria;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategoria(Category categoria) {
+		this.categoria = categoria;
 	}
-	
-	
-
-	
 
 }
