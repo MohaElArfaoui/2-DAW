@@ -1,11 +1,13 @@
 document.getElementById("btnCrearUsuario").addEventListener("click", crearUsuario);
 document.getElementById("btnRegistrarAlumno").addEventListener("click", registrarAlumno);
+document.getElementById("btnRegistrarNotas").addEventListener("click", registrarNota);
+
 const contrasena=document.querySelector("input[name=contrasena]").value;
 const correo=document.querySelector("input[name=correo]").value;
 
 function crearUsuario() {
     const nombre=document.querySelector("input[name=nombre]").value;
-    const apellido=document.querySelector("input[name=Apellidos").value;
+    const apellido=document.querySelector("input[name=Apellidos]").value;
     
     let primerApellido= apellido.split(" ")[0];
     let segundoApellido= apellido.split(" ")[1];
@@ -43,13 +45,13 @@ function validarContrasena(contrasena){
     }
     for (let i = 0; i < contrasena.length; i++) {
         let letra = contrasena[i];
-        if(abecedarioMin.includes(letra[i])) {
+        if(abecedarioMin.includes(letra)) {
             letraMin=true;
         }
-        if(abecedarioMayusculas.includes(letra[i])) {
+        if(abecedarioMayusculas.includes(letra)) {
             letraMay=true;
         }
-        if(numerosCadena.includes(letra[i])) {
+        if(numerosCadena.includes(letra)) {
             contieneNumero=true;
         }
     }
@@ -58,27 +60,50 @@ function validarContrasena(contrasena){
     } else {
         alert("Debe contener un numero, letra minuscula y mayuscula y tener una longitud mayor a 6.")
     }
+    return contrasenaValida;
 }
 
-function validarCorreo(correo){
-    let arroba="@";
-    let punto=".";
-    let correoValido=false;
+function validarCorreo(correo) {
 
-    for (let i = 0; i < correo.length; i++) {
-        let letra = correo[i];
+    if (correo.includes("@") && correo.includes(".")) {
+        return true;
+    }
+    alert("Debe contener un @ y un .");
+    return false;
 
-        if(arroba.includes(letra) && punto.includes(letra)){
-            correoValido=true;
-        } else {
-            alert("Debe contener un @ y un .");
-        }
-        
+}
+const alumnos=[];
+function registrarAlumno(){
+        const nombre = document.querySelector("input[name=nombre]").value;
+        const apellido = document.querySelector("input[name=Apellidos]").value;
+        const usuario = document.querySelector("input[name=usuario]").value;
+        const contrasena = document.querySelector("input[name=contrasena]").value;
+        const correo = document.querySelector("input[name=correo]").value;
+    
+        if(validarContrasena(contrasena) && validarCorreo(correo)){
+            alumnos.push(new Alumno(nombre, apellido, usuario, contrasena, correo));
+            alert("Se ha registrado correctamente");
+            const option = document.createElement("option");
+            option.value=usuario;
+            option.textContent=nombre + " " + apellido;
+            document.getElementById("selAlumno").appendChild(option);
+            
+
     }
 }
 
-function registrarAlumno(){
-    const alumno ={
-        
+function registrarNota() {
+    const usuario=document.getElementById("selAlumno").value;
+    const asignatura=document.getElementById("selNota").value;
+    const  valor= parseFloat(document.getElementById("nota").value);
+
+    for (const alumno of alumnos) {
+        if(alumno.getUsuario()==usuario){
+            if(alumno.altaNota(new Nota(asignatura, valor))){
+                alert("Ese alumno ya tiene nota en esa asignatura");
+            } else {
+                alert("Nota registrada")
+            }
+        }
     }
 }
