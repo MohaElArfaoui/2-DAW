@@ -1,0 +1,7 @@
+[
+    { "codigo": "ELE-001", "nombre": "Auriculares", "categoria": "Electrónica", "precio": 29.99, "stock": 10 },
+    { "codigo": "ELE-002", "nombre": "Ratón inalámbrico", "categoria": "Electrónica", "precio": 15.5, "stock": 2 },
+    { "codigo": "HOG-001", "nombre": "Lámpara de mesa", "categoria": "Hogar", "precio": 22, "stock": 0 },
+    { "codigo": "DEP-001", "nombre": "Balón de fútbol", "categoria": "Deporte", "precio": 18.75, "stock": 6 },
+    { "codigo": "LIB-001", "nombre": "El Quijote", "categoria": "Libros", "precio": 12.9, "stock": 4 }
+]

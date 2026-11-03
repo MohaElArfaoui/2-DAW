@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Final DOM - Gestión de Tienda</title>
+    <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css">
+    <!-- OJO: los scripts están en el HEAD (sin defer) -->
+    <script src="js/clases.js"></script>
+    <script src="js/codigo.js"></script>
+</head>
+<body>
+    <!-- ================= MENÚ ================= -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand">
+        <div class="container">
+            <span class="navbar-brand">TiendaDAW</span>
+            <ul class="navbar-nav" id="menu">
+                <li class="nav-item"><a class="nav-link" href="#" data-seccion="alta">Alta de productos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-seccion="inventario">Inventario</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-seccion="resumen">Resumen</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        <!-- ================= SECCIÓN ALTA ================= -->
+        <section id="alta" class="seccion">
+            <h2>Alta de productos</h2>
+            <form id="formAlta" class="col-md-6">
+                <div class="mb-2">
+                    <label class="form-label">Categoría</label>
+                    <select name="categoria" class="form-select">
+                        <option value="">-- Elige categoría --</option>
+                        <option value="Electrónica">Electrónica</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Deporte">Deporte</option>
+                        <option value="Libros">Libros</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Código (automático)</label>
+                    <input type="text" name="codigo" class="form-control" readonly>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" class="form-control">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Precio (€)</label>
+                    <input type="text" name="precio" class="form-control">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Stock</label>
+                    <input type="text" name="stock" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Añadir producto</button>
+            </form>
+            <div id="mensajes" class="mt-3"></div>
+        </section>
+
+        <!-- ================= SECCIÓN INVENTARIO ================= -->
+        <section id="inventario" class="seccion">
+            <h2>Inventario</h2>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre...">
+                </div>
+                <div class="col-md-4">
+                    <select id="filtroCategoria" class="form-select">
+                        <option value="Todas">Todas las categorías</option>
+                        <option value="Electrónica">Electrónica</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Deporte">Deporte</option>
+                        <option value="Libros">Libros</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" id="btnOrdenar" class="btn btn-secondary">Ordenar por precio ↑</button>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Código</th><th>Nombre</th><th>Categoría</th>
+                        <th>Precio</th><th>Stock</th><th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla"></tbody>
+            </table>
+        </section>
+
+        <!-- ================= SECCIÓN RESUMEN ================= -->
+        <section id="resumen" class="seccion">
+            <h2>Resumen</h2>
+            <div id="datosResumen"></div>
+            <h4 class="mt-4">Historial de ventas</h4>
+            <ul id="historial"></ul>
+        </section>
+
+    </div>
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
