@@ -4,13 +4,20 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.Fetch;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -55,9 +62,23 @@ public class Item {
 	@Column(name = "category")
 	@Enumerated(EnumType.STRING)
 	private Category categoria;
+	
+	@Column(name="imagen")
+	@Lob
+	@JsonIgnore
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] imagen;
 
 	public Long getId() {
 		return id;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 
 	public void setId(Long id) {

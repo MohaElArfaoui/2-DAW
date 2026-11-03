@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .caja {
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .caja p { margin: 0; }
+
+        .header,
+        .footer    { background-color: #2a5caa; }
+        .izquierda { background-color: #eeeeee; }
+        .centro    { background-color: #ffc107; }
+        .derecha   { background-color: #8fac3f; }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="row g-0">
+            <div class="col-12  caja header"><p>HEADER</p></div>
+        </div>
+
+        <div class="row g-0">
+            <div class="col-4 col-md-2 col-lg-3 col-xxl-2 d-none d-sm-block caja izquierda">
+                <p>IZQUIERDA</p>
+            </div>
+            <div class="col-12 col-sm-8 col-lg-6 col-xxl-6 caja centro">
+                <p>CENTRO</p>
+            </div>
+            <div class="col-12 col-md-2 col-lg-3 col-xxl-4 caja derecha">
+                <p>DERECHA</p>
+            </div>
+        </div>
+
+        <div class="row g-0">
+            <div class="col-12 caja footer"><p>FOOTER</p></div>
+        </div>
+
+    </div>
+</body>
+</html>
