@@ -9,24 +9,48 @@
             rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
             crossorigin="anonymous"/>
+    <style>
+        /* Estilo común a todas las cajas */
+        .caja {
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .caja p {
+            margin: 0;              /* Bootstrap le pone margen abajo al <p> */
+        }
+
+        /* Un color para cada caja */
+        .c1  { background-color: #eeeeee; }   /* gris claro */
+        .c2  { background-color: #ffc107; }   /* amarillo */
+        .c3  { background-color: #8fac3f; }   /* verde oliva */
+        .c4  { background-color: #2a5caa; }   /* azul */
+        .c5  { background-color: #a52a2a; }   /* granate */
+        .c6  { background-color: #7fff00; }   /* verde lima */
+        .c7  { background-color: #d2691e; }   /* naranja tostado */
+        .c8  { background-color: #fff8dc; }   /* crema */
+        .c9  { background-color: #9400d3; }   /* morado */
+        .c10 { background-color: #696969; }   /* gris oscuro */
+        .c11 { background-color: #ff8c00; }   /* naranja */
+        .c12 { background-color: #ff69b4; }   /* rosa */
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-1">
-                <p>col 1</p>
-                <p>col 2</p>
-                <p>col 3</p>
-                <p>col 4</p>
-                <p>col 5</p>
-                <p>col 6</p>
-                <p>col 7</p>
-                <p>col 8</p>
-                <p>col 9</p>
-                <p>col 10</p>
-                <p>col 11</p>
-                <p>col 12</p>
-            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c1"><p>col 1</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c2"><p>col 2</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c3"><p>col 3</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c4"><p>col 4</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c5"><p>col 5</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c6"><p>col 6</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c7"><p>col 7</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c8"><p>col 8</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c9"><p>col 9</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c10"><p>col 10</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c11"><p>col 11</p></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl- caja c12"><p>col 12</p></div>         
         </div>
     </div>
 </body>
