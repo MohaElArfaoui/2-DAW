@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<select id="miSelect">
+  <option value="1">Opción 1</option>
+  <option value="2">Opción 2</option>
+  <option value="3">Opción 3</option>
+</select>
+
+<script>
+  const select = document.getElementById('miSelect');
+  select.addEventListener('change', () => {
+      console.log('Valor seleccionado:', select.value);
+  });
+</script>
+</body>
+</html>
