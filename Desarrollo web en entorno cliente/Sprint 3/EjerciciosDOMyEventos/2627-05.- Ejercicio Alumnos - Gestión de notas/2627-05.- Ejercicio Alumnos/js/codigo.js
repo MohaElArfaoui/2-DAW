@@ -93,11 +93,20 @@ function validarContrasena(contrasena) {
 }
 
 function crearUsuario() {
-    const nombre=document.querySelector("input[name=nombre]").value;
-    const apellido=document.querySelector("input[name=Apellidos]").value;
+    const nombre=document.querySelector("input[name=nombre]").value.trim();
+    const apellido=document.querySelector("input[name=Apellidos]").value.trim();
 
-    let primerApellido=apellido.split(" ")[0];
-    let segundoApellido=apellido.split(" ")[1];
+    // Sin nombre o apellidos no se puede generar el usuario
+    if(nombre=="" || apellido==""){
+        alert("Rellena el nombre y los apellidos para crear el usuario");
+        return;
+    }
+
+    // Separar por espacios ignorando espacios dobles
+    const partesApellido=apellido.split(" ").filter(parte => parte!="");
+    let primerApellido=partesApellido[0];
+    // Si solo hay un apellido, el segundo queda vacío (antes era undefined y daba error)
+    let segundoApellido=partesApellido[1] || "";
 
     let nombreUsuario=nombre[0];
 
@@ -133,6 +142,14 @@ function registrarAlumno(){
     if(usuario==""){
         alert("El usuario no debe estar vacio");
         return;
+    }
+
+    // El usuario se usa como identificador en los select: no puede repetirse
+    for (const alumno of alumnos) {
+        if(alumno.getUsuario()==usuario){
+            alert("Ya existe un alumno con ese usuario");
+            return;
+        }
     }
 
     if(validarContrasena(contrasena) == false){
@@ -181,6 +198,10 @@ function registrarNota(){
     const asignatura=document.querySelector("select[name=selNota]").value;
     const nota=parseFloat(document.querySelector("input[name=nota]").value);
 
+    if(usuario==""){
+        alert("No hay ningún alumno seleccionado");
+        return;
+    }
     if(isNaN(nota)){
         alert("No puede estar vacio");
         return;
