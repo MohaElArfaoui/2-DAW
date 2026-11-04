@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Examen DAW</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script defer type="text/javascript" src="js/codigo.js"></script>
+
+    <style>
+      .capaUsuarios { 
+        height: 200px;
+        overflow-y: auto;
+        width: 100%;
+        border: 1px solid lightgrey;
+        font-weight: bold;
+
+      }
+
+      .capaFicha {
+        height: 200px;
+        overflow-y: auto;
+        width: 100%;
+        border: 1px solid lightgrey;
+      }
+    </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Sprint Review 3</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              
+            </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+    <div class="container" style="margin: 25px auto">
+      <div class="row justify-content-start">
+        <div class="col-3" id="divUsuarios">
+          <div style="margin-bottom: 15px;">Usuarios:</div>
+
+          <!--Capa que contiene el listado de usuarios-->
+          <div class="capaUsuarios" id="divTablaUsuarios">
+          </div>
+          <br>
+          <button type="button" class="btn btn-primary" id="btnRegistrar">Registrar</button>
+        </div>
+
+        <div class="col-9" id="divMensajes">
+          <div id="usuarioMensajes" style="margin-bottom: 15px;">Ficha:</div>
+
+          <!--Capa que contiene el listado de mensajes-->
+          <div class="capaFicha" id="divCapaFicha"> 
+          </div>
+          <br> 
+          <button type="button" class="btn btn-success" id="btnEliminar" value="Eliminar">Eliminar</button>
+          <button type="button" class="btn btn-danger" id="btnActualizar" value="Actualizar">Actualizar</button>
+      </div>
+
+    <form id="formUsuarios" name="formUsuarios">
+      <div class="col-6 border" style="margin:20px auto 20px; padding: 20px;">
+        <h2 style="text-align: center;">Usuari@s</h2>
+        <div class="form-group row" style="padding-top: 15px;">
+          <label for="nombre" class="col-4 col-form-label">Nombre</label> 
+          <div class="col-8">
+            <input id="nombre" name="nombre" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <label for="Apellidos" class="col-4 col-form-label">Apellidos</label> 
+          <div class="col-8">
+            <input id="apellidos" name="Apellidos" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <label for="usuario" class="col-4 col-form-label">Usuario</label> 
+          <div class="col-8">
+            <input id="usuario" name="usuario" type="text" class="form-control" >
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <label for="contrasena" class="col-4 col-form-label">Contraseña</label> 
+          <div class="col-8">
+            <input id="contrasena" name="contrasena" type="password" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <label for="correo" class="col-4 col-form-label">Correo</label> 
+          <div class="col-8">
+            <input id="correo" name="correo" type="text" class="form-control">
+          </div>
+        </div> 
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <button name="btnGestionarUsuarios" id="btnGestionarUsuarios" type="button" class="btn btn-primary" value="Registrar">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </form>   
+
+    </div>
+</body>
+
+</html>
