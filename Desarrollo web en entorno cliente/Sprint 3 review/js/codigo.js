@@ -22,7 +22,7 @@ cargarDatos();
 
 function cargarDatos(){
 
-    const cuerpo = document.getElementById("capaUsuarios");
+    const cuerpo = document.getElementById("divTablaUsuarios");
     cuerpo.innerHTML = "";      
     for (const usuario of arrayUsuarios) {
         cuerpo.innerHTML += `<tr>

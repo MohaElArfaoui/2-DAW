@@ -28,6 +28,7 @@ public class Operador {
 	
 	@OneToOne(mappedBy = "operador")
 	private Persona persona;
+	
 
 	public Long getId() {
 		return id;
