@@ -9,7 +9,8 @@
     "UiPath.Mail.Activities": "[1.15.2]",
     "UiPath.OCR.Activities": "[3.21.2]",
     "UiPath.PDF.Activities": "[3.20.2]",
-    "UiPath.System.Activities": "[26.8.2]"
+    "UiPath.System.Activities": "[26.8.2]",
+    "UiPath.UIAutomation.Activities": "[24.10.11]"
   },
   "webServices": [],
   "entitiesStores": [],
