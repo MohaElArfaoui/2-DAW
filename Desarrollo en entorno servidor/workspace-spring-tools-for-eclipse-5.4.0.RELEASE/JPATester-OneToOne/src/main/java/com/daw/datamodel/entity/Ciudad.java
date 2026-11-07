@@ -2,6 +2,8 @@ package com.daw.datamodel.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,6 +25,7 @@ public class Ciudad {
 	private String nombre;
 	
 	@OneToMany(mappedBy = "ciudad", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Persona> personas;
 
 	public String getNombre() {
