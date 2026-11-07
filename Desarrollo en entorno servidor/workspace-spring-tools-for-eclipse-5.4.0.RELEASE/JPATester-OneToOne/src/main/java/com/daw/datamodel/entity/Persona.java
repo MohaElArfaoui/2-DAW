@@ -36,7 +36,7 @@ public class Persona {
 	private Operador operador;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "id_ciudadr", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name="fk_ciudad_persona"))
+	@JoinColumn(name = "id_ciudad", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name="fk_ciudad_persona"))
 	private Ciudad ciudad;
 	
 	@ManyToMany
