@@ -2,12 +2,14 @@ const btnConsultarPorId = document.getElementById("btnConsultarPorId");
 const btnRegistrarCliente = document.getElementById("btnRegistrarCliente");
 const btnEliminarCliente = document.getElementById("btnEliminarCliente");
 const btnEditarCliente = document.getElementById("btnEditarCliente");
+const btnConsultarTodos = document.getElementById("btnConsultarTodos");
 
 
 btnConsultarPorId.addEventListener("click", mostrarDatosPorId);
 btnRegistrarCliente.addEventListener("click", registrarCliente);
 btnEliminarCliente.addEventListener("click", eliminarCliente);
 btnEditarCliente.addEventListener("click", editarCliente);
+btnConsultarTodos.addEventListener("click", consultarTodos);
 
 /* EJEMPLO DE CONSULTA EN BD USANDO METODO GET */
 function mostrarDatosPorId(){
@@ -15,6 +17,12 @@ function mostrarDatosPorId(){
     capa.setAttribute("id", "Listado");
     capa.setAttribute("style", "margin:auto; text-align: center;");
     let idCliente = document.getElementById("id").value;
+
+    const clickAnterior= document.getElementById("Listado")
+
+    if(clickAnterior) {
+      clickAnterior.remove();
+    }
     
     fetch('http://localhost:9999/buscarClientePorId?id=' + idCliente, {
         method: 'GET', 
@@ -40,6 +48,50 @@ function mostrarDatosPorId(){
     document.body.appendChild(capa);
 }
 
+function consultarTodos(){
+  const clickAnterior= document.getElementById("listadoClientes")
+
+  if(clickAnterior) {
+    clickAnterior.remove();
+  }
+
+  let tabla = document.createElement("table");
+  tabla.setAttribute("id", "listadoClientes");
+  tabla.className="table table-striped";
+  
+  fetch("http://localhost:9999/buscarTodosLosClientes", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      
+    }
+  })
+  .then(respuesta => {
+    if(respuesta.ok){
+      return respuesta.json();
+    }
+    throw new Error(respuesta.status);
+  })
+  .then(datos => {
+    if(datos){
+      for (const cliente of datos) {
+        const fila=document.createElement("tr")
+        const celda=document.createElement("td")
+        celda.innerHTML =cliente.nombre + " " + cliente.apellido;
+        fila.appendChild(celda);
+        tabla.appendChild(fila)
+        
+      }
+
+    }
+
+    })
+    .catch((error)=> {
+      console.log("Error" + error + " No hay clientes para mostrar")
+    })
+    document.body.appendChild(tabla)
+  }
+
 
 // Insertar un clientes.
 function registrarCliente(){
@@ -57,7 +109,8 @@ function registrarCliente(){
       .then(respuesta => respuesta.text())
       .then(respuesta => {
            if (respuesta === "Ok") {
-            mensajeExito("insertado");         
+            mensajeExito("insertado");
+            limpiarFormulario();         
         }else{
             mensajeError("insertar");
         }
@@ -78,9 +131,13 @@ function editarCliente(){
   const jsonString = JSON.stringify(jsonData); 
   
   const botonEditar=document.querySelector("button[name=btnEditarCliente]");
-  botonEditar.innerHTML="Actualizar"
+ 
+  if(botonEditar.innerHTML=="Editar"){
+    botonEditar.innerHTML="Actualizar";
+    return;
+  }
 
-  fetch("http://localhost:9999/editarCliente", {
+  fetch("http://localhost:9999/actualizarCliente", {
     method: "PUT",
     body: jsonString,
       headers: {
@@ -92,18 +149,21 @@ function editarCliente(){
     if(respuesta === "Ok") {
       mensajeExito("Se ha editado con exito");
       limpiarFormulario();
+      botonEditar.innerHTML="Editar";
     } else {
       mensajeError("No se ha podido editar");
     }
   })
 .catch((error) => {
-  console.log(error)
+  console.log(error);
+  mensajeError("Error de conexión con el servidor");
+
 })
 }
 
 function eliminarCliente(){
   let clienteId= document.getElementById("id").value;
-  fetch("http://localhost:9999/eliminarCliente?id= " + clienteId, {
+  fetch("http://localhost:9999/eliminarCliente?id=" + clienteId, {
     method: "DELETE",
       headers: {
         "Content-Type": "application/json"
