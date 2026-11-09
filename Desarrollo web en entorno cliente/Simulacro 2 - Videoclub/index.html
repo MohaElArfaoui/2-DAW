@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Simulacro 2 - Videoclub</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/clases.js"></script>
+    <script src="js/codigo.js"></script>
+
+    <style>
+      .capaPeliculas { height: 240px; overflow-y: auto; width: 100%; border: 1px solid lightgrey; }
+      .capaFicha { height: 240px; overflow-y: auto; width: 100%; border: 1px solid lightgrey; padding: 10px; }
+    </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid"><a class="navbar-brand" href="#">Videoclub DAW</a></div>
+  </nav>
+
+  <div class="container" style="margin: 25px auto">
+    <div class="row justify-content-start">
+
+      <div class="col-5" id="divPeliculas">
+        <div style="margin-bottom: 10px;">Películas:</div>
+        <select id="selFiltro" class="form-select" style="margin-bottom: 10px;">
+          <option value="Todos">Todos los géneros</option>
+          <option value="Acción">Acción</option>
+          <option value="Comedia">Comedia</option>
+          <option value="Drama">Drama</option>
+          <option value="Animación">Animación</option>
+        </select>
+        <!--Capa que contiene el listado de películas-->
+        <div class="capaPeliculas" id="divListaPeliculas"></div>
+        <br>
+        <button type="button" class="btn btn-primary" id="btnAlta">Nueva película</button>
+      </div>
+
+      <div class="col-7" id="divDetalle">
+        <div style="margin-bottom: 10px;">Ficha:</div>
+        <!--Capa que contiene la ficha-->
+        <div class="capaFicha" id="divFicha"></div>
+        <br>
+        <button type="button" class="btn btn-success" id="btnAlquilar">Alquilar</button>
+        <button type="button" class="btn btn-info" id="btnModificar">Modificar</button>
+        <button type="button" class="btn btn-danger" id="btnEliminar">Eliminar</button>
+      </div>
+
+      <form id="formPelicula" name="formPelicula">
+        <div class="col-6 border" style="margin:20px auto 20px; padding: 20px;">
+          <h2 style="text-align: center;">Película</h2>
+          <div class="form-group row" style="padding-top: 15px;">
+            <label for="selGenero" class="col-4 col-form-label">Género</label>
+            <div class="col-8">
+              <select id="selGenero" name="genero" class="form-select">
+                <option value="">-- Elige género --</option>
+                <option value="Acción">Acción</option>
+                <option value="Comedia">Comedia</option>
+                <option value="Drama">Drama</option>
+                <option value="Animación">Animación</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row" style="padding-top: 15px;">
+            <label for="txtCodigo" class="col-4 col-form-label">Código</label>
+            <div class="col-8"><input id="txtCodigo" name="codigo" type="text" class="form-control" readonly></div>
+          </div>
+          <div class="form-group row" style="padding-top: 15px;">
+            <label for="txtTitulo" class="col-4 col-form-label">Título</label>
+            <div class="col-8"><input id="txtTitulo" name="titulo" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group row" style="padding-top: 15px;">
+            <label for="txtDirector" class="col-4 col-form-label">Director</label>
+            <div class="col-8"><input id="txtDirector" name="director" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group row" style="padding-top: 15px;">
+            <label for="txtPrecio" class="col-4 col-form-label">Precio alquiler (€)</label>
+            <div class="col-8"><input id="txtPrecio" name="precio" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group row" style="padding-top: 15px;">
+            <div class="col-4"></div>
+            <div class="col-4"><button id="btnAceptar" type="button" class="btn btn-primary">Aceptar</button></div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</body>
+</html>
