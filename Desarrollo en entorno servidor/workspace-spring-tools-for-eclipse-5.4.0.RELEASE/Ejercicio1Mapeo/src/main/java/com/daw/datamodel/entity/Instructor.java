@@ -22,10 +22,10 @@ public class Instructor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="name")
+	@Column(name="name", nullable = false, length = 20)
 	private String nombre;
 	
-	@Column(name="phone")
+	@Column(name="phone", nullable = false)
 	private  Integer telefono;
 	
 	@OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
