@@ -23,18 +23,18 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name="name")
+	@Column(name="name", nullable = false, length = 20)
 	private String nombre;
-	@Column(name="fee")
+	@Column(name="fee", nullable = false)
 	private BigDecimal cuota;
-	@Column(name="duration")
-	private Float duracion;
+	@Column(name="duration", nullable = false)
+	private Integer duracion;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_instructor", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name="fk_instructor_curso"))
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_instructor", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name="fk_instructor_curso"))
 	private Instructor instructor;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "rel_course_student", joinColumns = @JoinColumn(name = "course", nullable = false, foreignKey = @ForeignKey(name="fk_course")),
 	inverseJoinColumns = @JoinColumn(name="student", nullable = false, foreignKey = @ForeignKey(name="id_student")))
 	private List<Alumno> alumnos;
@@ -57,10 +57,10 @@ public class Curso {
 	public void setCuota(BigDecimal cuota) {
 		this.cuota = cuota;
 	}
-	public Float getDuracion() {
+	public Integer getDuracion() {
 		return duracion;
 	}
-	public void setDuracion(Float duracion) {
+	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
 	}
 	
