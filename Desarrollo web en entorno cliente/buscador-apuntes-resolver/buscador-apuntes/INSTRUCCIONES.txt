@@ -1,0 +1,34 @@
+BUSCADOR DE APUNTES - LEER ANTES DE USAR
+========================================
+
+Los archivos de JavaScript van con ".txt" al final (por ejemplo "app.js.txt")
+porque el correo y algunas apps de mensajería bloquean los .js.
+Antes de abrir la app hay que quitarles ese ".txt". Son 11 archivos:
+
+  js\almacen.js.txt       js\indexador.js.txt     js\vista.js.txt
+  js\app.js.txt           js\lectorPdf.js.txt     lib\pdf.min.js.txt
+  js\buscador.js.txt      js\previa.js.txt        lib\pdf.worker.min.js.txt
+                                                  lib\prism.js.txt
+
+OPCIÓN 1 - Automática (Windows, recomendada)
+--------------------------------------------
+1. Descomprime el zip.
+2. Abre la carpeta "buscador-apuntes".
+3. Haz clic en la barra de direcciones del Explorador, escribe  powershell  y pulsa Enter.
+4. Pega esta línea y pulsa Enter:
+
+   Get-ChildItem -Recurse -Filter *.js.txt | Rename-Item -NewName { $_.Name -replace '\.txt$','' }
+
+5. Comprueba que en las carpetas "js" y "lib" ya no queda ningún ".js.txt".
+
+OPCIÓN 2 - A mano
+-----------------
+1. En el Explorador de Windows: pestaña "Ver" > "Mostrar" > activa
+   "Extensiones de nombre de archivo" (si no, no verás el ".txt").
+2. Renombra cada uno de los 11 archivos quitando el ".txt" final
+   (app.js.txt -> app.js). Windows avisará del cambio de extensión: acepta.
+
+DESPUÉS
+-------
+Abre index.html con doble clic en Chrome o Edge. El resto está en LEEME.md.
+OJO: no renombres los otros .txt (licencias de lib y fonts): esos son texto de verdad.

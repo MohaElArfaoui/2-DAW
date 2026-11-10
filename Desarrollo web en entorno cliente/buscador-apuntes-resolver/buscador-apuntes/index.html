@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buscador de apuntes</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="en-login">
+
+  <!-- =========================================================
+       PANTALLA 1: LOGIN (un solo usuario + su carpeta)
+       ========================================================= -->
+  <main id="pantalla-login" class="pantalla-login">
+    <section class="tarjeta-login" aria-labelledby="titulo-login">
+      <h1 id="titulo-login" class="marca">Buscador de apuntes</h1>
+      <p class="subtitulo">Encuentra tus ejemplos y tu teoría en segundos. Funciona sin internet.</p>
+
+      <!-- Se muestra cuando todavía no hay usuario guardado -->
+      <div id="login-nuevo" class="bloque-login" hidden>
+        <label for="campo-nombre" class="etiqueta">Tu nombre</label>
+        <input id="campo-nombre" class="campo" type="text" autocomplete="off" maxlength="40" placeholder="Ej.: Antonio">
+
+        <span class="etiqueta">Carpeta de apuntes</span>
+        <div class="fila-carpeta">
+          <button id="btn-elegir-carpeta" type="button" class="btn btn-secundario">Elegir carpeta…</button>
+          <span id="nombre-carpeta-nueva" class="carpeta-elegida">Ninguna</span>
+        </div>
+
+        <button id="btn-crear-usuario" type="button" class="btn btn-primario btn-ancho" disabled>Guardar y entrar</button>
+      </div>
+
+      <!-- Se muestra cuando ya hay un usuario guardado -->
+      <div id="login-guardado" class="bloque-login" hidden>
+        <p class="saludo">Hola, <strong id="texto-usuario"></strong></p>
+        <p class="dato-carpeta">Carpeta: <strong id="texto-carpeta"></strong></p>
+        <button id="btn-entrar" type="button" class="btn btn-primario btn-ancho">Entrar</button>
+        <div class="fila-acciones">
+          <button id="btn-cambiar-carpeta" type="button" class="btn btn-secundario">Cambiar carpeta</button>
+          <button id="btn-borrar-usuario" type="button" class="btn btn-peligro">Borrar usuario</button>
+        </div>
+      </div>
+
+      <!-- Para visores integrados (p. ej. el panel de Live Preview de VS Code) donde
+           el selector de Chrome se abre pero luego se queda colgado. Usa el plan B. -->
+      <button id="btn-carpeta-alternativa" type="button" class="btn btn-secundario btn-alternativo" hidden
+              title="Para Live Preview de VS Code u otros visores donde «Elegir carpeta…» no responde. Te pedirá la carpeta cada vez.">Elegir carpeta en VS Code</button>
+
+      <!-- Plan B para navegadores sin File System Access API (p. ej. Firefox) -->
+      <input id="input-carpeta" type="file" webkitdirectory multiple hidden>
+
+      <p id="aviso-navegador" class="aviso" hidden></p>
+      <p id="mensaje-login" class="mensaje" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       PANTALLA 2: BUSCADOR
+       ========================================================= -->
+  <div id="pantalla-app" class="pantalla-app" hidden>
+    <header class="cabecera">
+      <div class="cabecera-fila">
+        <p class="marca marca-pequena">Buscador de apuntes</p>
+
+        <!-- Dos modos: buscar por palabras o "resolver" pegando un enunciado -->
+        <div class="selector-modo" role="group" aria-label="Modo">
+          <button id="modo-buscar" type="button" class="modo-btn" aria-pressed="true">Buscar</button>
+          <button id="modo-resolver" type="button" class="modo-btn" aria-pressed="false">Resolver</button>
+        </div>
+
+        <div class="caja-busqueda">
+          <input id="campo-busqueda" type="search" placeholder="Busca por carpeta, archivo o contenido…"
+                 autocomplete="off" spellcheck="false" aria-label="Buscar">
+          <kbd class="atajo" title="Pulsa / para buscar">/</kbd>
+        </div>
+
+        <div class="cabecera-usuario">
+          <span id="chip-usuario" class="chip-usuario"></span>
+          <button id="btn-reindexar" type="button" class="btn btn-fantasma" title="Volver a leer la carpeta">Releer</button>
+          <button id="btn-salir" type="button" class="btn btn-fantasma">Salir</button>
+        </div>
+      </div>
+
+      <!-- MODO RESOLVER: pegas un enunciado y busca lo parecido en tus apuntes -->
+      <div id="caja-resolver" class="caja-resolver" hidden>
+        <textarea id="campo-enunciado" rows="4" spellcheck="false"
+                  placeholder="Pega aquí el enunciado del ejercicio. Ej.: «Cuando pulse en cualquier usuario (usar delegación de eventos) se mostrará su ficha. Al pulsar Eliminar se pedirá confirmación…»"></textarea>
+        <div class="fila-resolver">
+          <button id="btn-resolver" type="button" class="btn btn-primario">Buscar parecidos</button>
+          <span class="pista">o <kbd>Ctrl</kbd>+<kbd>Enter</kbd> · Detecta los patrones, tus ejercicios más parecidos y la teoría de tus PDF. Sin internet ni IA.</span>
+        </div>
+      </div>
+
+      <div class="filtros">
+        <div class="grupo-filtro" role="group" aria-label="Buscar en">
+          <span class="filtro-titulo">Buscar en</span>
+          <label class="chip"><input type="checkbox" id="en-carpeta" checked><span>Carpeta</span></label>
+          <label class="chip"><input type="checkbox" id="en-nombre" checked><span>Archivo</span></label>
+          <label class="chip"><input type="checkbox" id="en-contenido" checked><span>Contenido</span></label>
+        </div>
+        <div class="grupo-filtro" role="group" aria-label="Tipos de archivo">
+          <span class="filtro-titulo">Tipos</span>
+          <label class="chip"><input type="checkbox" name="tipo" value="html" checked><span>HTML</span></label>
+          <label class="chip"><input type="checkbox" name="tipo" value="css" checked><span>CSS</span></label>
+          <label class="chip"><input type="checkbox" name="tipo" value="js" checked><span>JS</span></label>
+          <label class="chip"><input type="checkbox" name="tipo" value="java" checked><span>Java</span></label>
+          <label class="chip" title="JSON, XML, CSV y TXT"><input type="checkbox" name="tipo" value="datos" checked><span>Datos</span></label>
+          <label class="chip"><input type="checkbox" name="tipo" value="pdf" checked><span>PDF</span></label>
+        </div>
+      </div>
+
+      <div class="estado" role="status" aria-live="polite">
+        <span id="texto-estado"></span>
+        <progress id="progreso" max="1" value="0" hidden></progress>
+      </div>
+    </header>
+
+    <main id="principal" class="principal">
+      <section id="panel-resultados" class="panel-resultados" aria-label="Resultados">
+        <p id="resumen-resultados" class="resumen"></p>
+        <div id="lista-resultados"></div>
+      </section>
+
+      <section id="panel-visor" class="panel-visor" aria-label="Código del archivo">
+        <div id="visor-vacio" class="visor-vacio">
+          <p>Elige un resultado para ver aquí su código.</p>
+          <p class="pista">Los PDF se abren en una pestaña nueva; dentro usa <kbd>Ctrl</kbd>+<kbd>F</kbd>.</p>
+        </div>
+
+        <div id="visor-contenido" class="visor-contenido" hidden>
+          <!-- vista.js rellena la cabecera y el código cada vez que cambia el archivo -->
+          <div id="visor-cabecera" class="visor-cabecera"></div>
+          <div class="visor-cuerpo">
+            <div id="visor-codigo" class="visor-codigo"></div>
+
+            <!-- La vista previa NO se repinta con el código: si se moviera o recreara
+                 el iframe, el ejemplo se reiniciaría. La gestiona previa.js -->
+            <div id="visor-previa" class="visor-previa" hidden>
+              <div class="previa-barra">
+                <span class="previa-etiqueta">Vista previa</span>
+                <span id="previa-titulo" class="previa-titulo"></span>
+                <span id="previa-errores" class="previa-errores" hidden></span>
+                <button id="btn-previa-recargar" type="button" class="btn-icono" title="Volver a cargar el ejemplo" aria-label="Recargar el ejemplo">
+                  <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg>
+                </button>
+                <button id="btn-previa-expandir" type="button" class="btn-icono" title="Expandir la vista previa" aria-label="Expandir la vista previa" aria-pressed="false">
+                  <svg class="icono icono-expandir" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6 6M4 20l6-6"/></svg>
+                  <svg class="icono icono-contraer" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4l-6 6M4 20l6-6M14 4v6h6M10 20v-6H4"/></svg>
+                </button>
+              </div>
+              <ul id="previa-mensajes" class="previa-mensajes" hidden></ul>
+              <div id="previa-marco" class="previa-marco"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Scripts clásicos (sin type="module"): Chrome bloquea los módulos al abrir
+       el HTML con doble clic (file://). El orden importa: cada archivo usa los anteriores.
+       prism.js colorea el código como un editor (solo se usa en el visor).
+       PDF.js NO se carga aquí: lectorPdf.js lo carga solo cuando hace falta. -->
+  <script src="lib/prism.js"></script>
+  <script src="js/almacen.js"></script>
+  <script src="js/buscador.js"></script>
+  <script src="js/lectorPdf.js"></script>
+  <script src="js/indexador.js"></script>
+  <script src="js/vista.js"></script>
+  <script src="js/previa.js"></script>
+  <script src="js/resolver.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
