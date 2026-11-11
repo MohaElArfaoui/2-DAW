@@ -38,6 +38,7 @@ public class Vivienda {
 	@Column(name = "m2Edif", nullable = false)
 	private BigDecimal m2Edif;
 	
+	//La joinColumn hace referencia a la entidad donde estoy, mientras que la inverseJoinColumn apuntaria a la otra entiedad.
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "rel_house_person", joinColumns = @JoinColumn(name="house", nullable = false, foreignKey = @ForeignKey(name="fk_house")),
@@ -49,7 +50,7 @@ public class Vivienda {
 	private List<Persona> habitantes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name="id_municipio", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name="fk_municipio_vivienda"))
+	@JoinColumn(name="id_municipio", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name="fk_municipio_vivienda")) 
 	private Municipio municipio;
 	
 
