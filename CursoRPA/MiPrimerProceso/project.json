@@ -4,6 +4,7 @@
   "description": "Hola Mundo en UiPath",
   "main": "Main.xaml",
   "dependencies": {
+    "UiPath.Database.Activities": "[1.5.0]",
     "UiPath.Excel.Activities": "[2.24.4]",
     "UiPath.FTP.Activities": "[3.1.1-preview]",
     "UiPath.Mail.Activities": "[1.15.2]",

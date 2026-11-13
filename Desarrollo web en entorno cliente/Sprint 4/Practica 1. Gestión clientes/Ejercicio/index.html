@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Examen DAW</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sweetalert2/css/sweetalert2.min.css">
+    <script src="sweetalert2/js/sweetalert2.min.js"></script>
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer type="text/javascript" src="js/codigo.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Practica 1</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="registrarClientes">Registrar</a>
+              </li>
+              <li class="nav-item" >
+                <a class="nav-link" href="#" id="actualizarClientes">Actualizar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="eliminarClientes">Eliminar</a>
+              </li>                
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Consultar
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="consultaIndividual">Individual</a></li>
+                  <li><a class="dropdown-item" href="#" id="consultaTodas">Tod@s</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!--Formulario usado para registrar los clientes-->
+    <form id="formRegistrarCliente" name="formRegistrarCliente">
+      <div class="col-6 border" style="margin:20px auto 20px; padding: 20px;">
+        <h2 style="text-align: center;">Registrar Clientes</h2>
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-12">
+            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-12">
+            <input id="apellido" name="apellido" type="text" class="form-control" placeholder="Apellidos">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+           <div class="col-4">
+            <input id="fechaNacimiento" name="fechaNacimiento" type="text" class="form-control" placeholder="Fecha Nacimiento">
+          </div>
+          <div class="col-4">
+            <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Teléfono">
+          </div>
+          <div class="col-4">
+            <input id="dni" name="dni" type="text" class="form-control" placeholder="D.N.I.">
+          </div>
+        </div> 
+        <div class="form-group row" style="padding-top: 15px;"> 
+            <button name="btnRegistrarCliente" id="btnRegistrarCliente" type="button" class="btn btn-dark" title="Registrar">Registrar</button>
+        </div>
+      </div>
+    </form>
+
+
+    <!--Formulario usado para actualizar los clientes-->
+    <form id="formActualizarCliente" name="formActualizarCliente">
+      <div class="col-6 border" style="margin:20px auto 20px; padding: 20px;">
+        <h2 style="text-align: center;">Actualizar Clientes</h2>
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-12">
+            <select class="form-select" id="selActualizarCliente" name="selActualizarCliente">
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-12">
+            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-12">
+            <input id="apellido" name="apellido" type="text" class="form-control" placeholder="Apellidos">
+          </div>
+        </div>
+        <div class="form-group row" style="padding-top: 15px;">
+           <div class="col-4">
+            <input id="fechaNacimiento" name="fechaNacimiento" type="text" class="form-control" placeholder="Fecha Nacimiento">
+          </div>
+          <div class="col-4">
+            <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Teléfono">
+          </div>
+          <div class="col-4">
+            <input id="dni" name="dni" type="text" class="form-control" placeholder="D.N.I.">
+          </div>
+        </div> 
+        <div class="form-group row" style="padding-top: 15px;">
+            <button name="btnActualizarCliente" id="btnActualizarCliente" type="button" class="btn btn-warning" title="Actualizar">Actualizar</button>
+        </div>
+      </div>
+    </form>
+   
+    
+    <!--Formulario usado para eliminar clientes -->
+    <form id="formEliminarCliente" name="formEliminarCliente">
+      <div class="col-6 border" style="margin:20px auto 20px; padding: 20px;">
+        <h2 style="text-align: center;">Eliminar Cliente</h2>
+        <div class="form-group row" style="padding-top: 15px;">
+          <div class="col-12">
+            <select class="form-select" id="selEliminarCliente" name="selEliminarCliente">
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!--Formulario que muestra el detalle de los clientes -->
+    <form id="formDetalleCliente" name="formDetalleCliente">
+      <div class="col-6 border" style="margin:20px auto 20px; padding: 20px;">
+        <h2 style="text-align: center;">Detalle Cliente</h2>
+        <div class="form-group row" style="padding-top: 15px;">
+            <select class="form-select" id="selClienteDetalle" name="selClienteDetalle">
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+            </select>
+        </div>
+      </div>
+    </form>
+</body>
+
+</html>
