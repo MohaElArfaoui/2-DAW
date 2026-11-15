@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.daw</groupId>
-	<artifactId>EsqueletoProyectoAPIRest</artifactId>
+	<artifactId>GestionKiosco</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>EsqueletoProyectoAPIRest</name>
+	<name>GestionKiosco</name>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
