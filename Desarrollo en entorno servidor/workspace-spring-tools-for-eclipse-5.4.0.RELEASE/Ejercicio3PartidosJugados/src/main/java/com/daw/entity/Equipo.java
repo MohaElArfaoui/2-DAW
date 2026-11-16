@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,28 +26,17 @@ public class Equipo {
 	@Column(name = "nombre", nullable = false, length = 20)
 	private String nombre;
 	
-	@OneToMany(mappedBy = "equipoLocal")
+
+	
+	@OneToMany(mappedBy = "equipo", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Partido> partidosLocal; 
+	private List<EsLocal> locales;
 	
-	
-	@OneToMany(mappedBy = "equipoVisitante")
+	@OneToMany(mappedBy = "equipo", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Partido> partidosVisitante; 
+	private List<EsVisitante> visitantes;
 	
-	
-	public List<Partido> getPartidosLocal() {
-		return partidosLocal;
-	}
-	public void setPartidosLocal(List<Partido> partidosLocal) {
-		this.partidosLocal = partidosLocal;
-	}
-	public List<Partido> getPartidosVisitante() {
-		return partidosVisitante;
-	}
-	public void setPartidosVisitante(List<Partido> partidosVisitante) {
-		this.partidosVisitante = partidosVisitante;
-	}
+
 	public Long getId() {
 		return id;
 	}
