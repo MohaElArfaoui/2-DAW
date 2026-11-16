@@ -1,6 +1,8 @@
 package com.daw.entity;
 
-import java.time.LocalDate;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,18 +22,26 @@ public class Copia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "numero", nullable = false)
 	private Long numero;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id_libro", referencedColumnName = "isbn", foreignKey = @ForeignKey(name = "fk_libro_copia"), nullable = false)
+	@JoinColumn(name = "id_libro", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_libro_copia"), nullable = false)
 	private Libro libro;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "id_usuario", referencedColumnName = "numero", foreignKey = @ForeignKey(name = "fk_usuario_copia"))
-	private Usuario usuario;
-	
-	@Column(name = "fecha")
-	private LocalDate fecha;
+	@OneToMany(mappedBy = "copia", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<Prestamo> prestamos;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getNumero() {
 		return numero;
@@ -48,23 +59,16 @@ public class Copia {
 		this.libro = libro;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public List<Prestamo> getPrestamos() {
+		return prestamos;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setPrestamos(List<Prestamo> prestamos) {
+		this.prestamos = prestamos;
 	}
 	
-	
+
+
 	
 }
 

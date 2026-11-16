@@ -1,18 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/a05c1998d9.js" crossorigin="anonymous"></script>
     <title>Reserva tu butaca</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a05c1998d9.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        #cine {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .controles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .controles label {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h3 style="text-align: center;">RESERVA TU BUTACA</h3>
-    <h3 style="text-align: center;">SALA: CINES DAW</h3>
-    <h3 style="text-align: center;">PELICULA: MATRIX</h3>
-    <div id="cine" style=" display: flex; justify-content: center; align-items: center;">    
-    </div>
-    
+    <header>
+        <h1>RESERVA TU BUTACA</h1>
+        <h2>SALA: CINES DAW</h2>
+        <h2>PELÍCULA: MATRIX</h2>
+    </header>
+
+    <main>
+        <div id="cine"></div>
+
+        <form id="reserva" class="controles">
+            <label for="fecha">
+                Fecha
+                <input type="date" id="fecha" name="fecha" required>
+            </label>
+
+            <label for="hora">
+                Sesión
+                <select id="hora" name="hora" required>
+                    <option value="18:00">18:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="22:00">22:00</option>
+                </select>
+            </label>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/codigo.js"></script>
 </body>
 </html>
