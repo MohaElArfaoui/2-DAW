@@ -48,6 +48,7 @@
       <x:String>UiPath.UIAutomationNext.Activities.Services.RuntimeAnalyze</x:String>
       <x:String>UiPath.UIAutomationNext.Activities</x:String>
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -112,15 +113,19 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Soluciones" sap:VirtualizedContainerService.HintSize="1568,7332" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Soluciones" sap:VirtualizedContainerService.HintSize="1568,8751" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Proceso Arca de Noe" sap:VirtualizedContainerService.HintSize="858,7309" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="Proceso Arca de Noe" sap:VirtualizedContainerService.HintSize="858,8728" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="snm:MailMessage" Name="mail_solicitud" />
         <Variable x:TypeArguments="sd:DataTable" Name="dt_solicitudes" />
@@ -182,7 +187,7 @@
           </ActivityAction>
         </ui:ForEach.Body>
       </ui:ForEach>
-      <If Condition="[mail_solicitud Is Nothing]" sap:VirtualizedContainerService.HintSize="824,6157" sap2010:WorkflowViewState.IdRef="If_2">
+      <If Condition="[mail_solicitud Is Nothing]" sap:VirtualizedContainerService.HintSize="824,7576" sap2010:WorkflowViewState.IdRef="If_2">
         <If.Then>
           <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="822,226" sap2010:WorkflowViewState.IdRef="Sequence_6">
             <sap:WorkflowViewStateService.ViewState>
@@ -194,7 +199,10 @@
           </Sequence>
         </If.Then>
         <If.Else>
-          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="822,5769" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="822,7188" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="str_plantilla" />
+            </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -202,14 +210,15 @@
             </sap:WorkflowViewStateService.ViewState>
             <ui:SaveMailAttachments Attachments="[lst_adjuntos]" DisplayName="Save Attachments" ExcludeInlineAttachments="False" FolderPath="03 Arca de Noe\Temps" sap:VirtualizedContainerService.HintSize="788,120" sap2010:WorkflowViewState.IdRef="SaveMailAttachments_1" Message="[mail_solicitud]" OverwriteExisting="True" />
             <ui:ReadRange Range="{x:Null}" WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dt_solicitudes]" DisplayName="Read Range Workbook" sap:VirtualizedContainerService.HintSize="788,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="03 Arca de Noe\Temps\Mascotas.xlsx" />
+            <ui:ReadTextFile File="{x:Null}" Content="[str_plantilla]" DisplayName="Read Text File" Encoding="65001" FileName="03 Arca de Noe\Plantillas\Plantilla_Resultados.txt" sap:VirtualizedContainerService.HintSize="788,124" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
             <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="788,175" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[&quot;Filas leídas: &quot; &amp; dt_solicitudes.Rows.Count.ToString]" />
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_solicitudes]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="788,5294" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_solicitudes]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="788,6589" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="786,5121" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="786,6416" sap2010:WorkflowViewState.IdRef="Sequence_9">
                     <Sequence.Variables>
                       <Variable x:TypeArguments="x:String" Name="str_id" />
                       <Variable x:TypeArguments="x:String" Name="str_animal" />
@@ -272,13 +281,13 @@
                       </Assign.Value>
                     </Assign>
                     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="752,175" sap2010:WorkflowViewState.IdRef="LogMessage_5" Message="[&quot;Procesando &quot; &amp; str_id &amp; &quot;: &quot; &amp; str_animal &amp; &quot; | &quot; &amp; str_sexo &amp; &quot; | &quot; &amp; str_edad &amp; &quot; | &quot; &amp; str_tamano &amp; &quot; -&gt; &quot; &amp; str_interesado]" />
-                    <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="752,3836" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://arcadenoe.org/">
+                    <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="752,5131" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://arcadenoe.org/">
                       <ui:OpenBrowser.Body>
                         <ActivityAction x:TypeArguments="x:Object">
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
                           </ActivityAction.Argument>
-                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="718,3687" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="718,4982" sap2010:WorkflowViewState.IdRef="Sequence_10">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -392,13 +401,13 @@
                                 </ui:Target>
                               </ui:Click.Target>
                             </ui:Click>
-                            <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Use Browser Chrome: Arca de Noé - Perros en Adopción" sap:VirtualizedContainerService.HintSize="684,2737" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="Never" ScopeGuid="c47a89f9-74a2-4b49-82ef-a7586141c112" Version="V2">
+                            <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Use Browser Chrome: Arca de Noé - Perros en Adopción" sap:VirtualizedContainerService.HintSize="684,4032" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="Never" ScopeGuid="c47a89f9-74a2-4b49-82ef-a7586141c112" Version="V2">
                               <uix:NApplicationCard.Body>
                                 <ActivityAction x:TypeArguments="x:Object">
                                   <ActivityAction.Argument>
                                     <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
                                   </ActivityAction.Argument>
-                                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="650,2487" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="650,3782" sap2010:WorkflowViewState.IdRef="Sequence_12">
                                     <Sequence.Variables>
                                       <Variable x:TypeArguments="sd:DataTable" Name="dt_resultados" />
                                     </Sequence.Variables>
@@ -415,7 +424,7 @@
                                         <InArgument x:TypeArguments="sd:DataTable">[New DataTable]</InArgument>
                                       </Assign.Value>
                                     </Assign>
-                                    <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[dt_resultados]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Nombre'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Edad'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column2' Name='Raza'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column3' Name='Descripcion'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column5' Name='Enlace'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataNextLink' /&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='h3' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='2' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column3' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='4' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column5' attr='href'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="616,190" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="c47a89f9-74a2-4b49-82ef-a7586141c112" Version="V4">
+                                    <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[dt_resultados]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Nombre'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Edad'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column2' Name='Raza'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column3' Name='Descripcion'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column5' Name='Enlace'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataNextLink' /&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='h3' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='2' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column3' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='4' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column5' attr='href'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="616,190" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="c47a89f9-74a2-4b49-82ef-a7586141c112" Timeout="15" Version="V4">
                                       <uix:NExtractData.NextLink>
                                         <uix:TargetAnchorable BrowserURL="arcadenoe.org/listado_animales.php" CVScreenId="a0f17f52-0ede-49b9-be49-9d7205d757c3" CvElementArea="1010, 1108, 37, 37" CvTextArea="1022, 1121, 10, 10" CvTextArgument="&gt;&gt;" CvType="Button" DesignTimeRectangle="1011, 1109, 34, 35" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='»' class='page-link' parentid='principal_contenidos' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='»' class='page-link' parentid='principal_contenidos' tag='A' type='' check:innerText='»' /&gt;" Guid="4cc55921-b076-439a-b567-3d8799f50b88" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Arca de Noé - Perros en Adopción' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive" />
                                       </uix:NExtractData.NextLink>
@@ -481,26 +490,93 @@
                                         </ActivityAction>
                                       </ui:ForEachRow.Body>
                                     </ui:ForEachRow>
-                                    <If Condition="[dt_resultados.Rows.Count = 0]" sap:VirtualizedContainerService.HintSize="616,768" sap2010:WorkflowViewState.IdRef="If_3">
+                                    <If Condition="[dt_resultados.Rows.Count = 0]" sap:VirtualizedContainerService.HintSize="616,2061" sap2010:WorkflowViewState.IdRef="If_3">
                                       <If.Then>
-                                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,228" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="486,583" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                          <Sequence.Variables>
+                                            <Variable x:TypeArguments="x:String" Name="str_cuerpo_sin_coincidencias" />
+                                          </Sequence.Variables>
                                           <sap:WorkflowViewStateService.ViewState>
                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                             </scg:Dictionary>
                                           </sap:WorkflowViewStateService.ViewState>
-                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,168" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Warn" Message="[&quot;Sin coincidencias para &quot; &amp; str_id &amp; &quot;. Aviso a &quot; &amp; str_interesado]" />
+                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="452,177" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Warn" Message="[&quot;Sin coincidencias para &quot; &amp; str_id &amp; &quot;. Aviso a &quot; &amp; str_interesado]" />
+                                          <Assign sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_21">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[str_cuerpo_sin_coincidencias]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">["No hay coincidencias"]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[str_cuerpo_sin_coincidencias]" DisplayName="Send SMTP Mail Message" Email="[str_usuario]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="452,171" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="True" Port="587" SecureConnection="Auto" SecurePassword="[sec_contrasena]" Server="smtp.gmail.com" Subject="[&quot;Arca de Noé - Solicitud &quot; &amp; str_id &amp; &quot;: sin coincidencias&quot;]" To="mohadj234@gmail.com">
+                                            <ui:SendMail.Files>
+                                              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4" />
+                                            </ui:SendMail.Files>
+                                          </ui:SendMail>
                                         </Sequence>
                                       </If.Then>
                                       <If.Else>
-                                        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,376" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="486,1314" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                          <Sequence.Variables>
+                                            <Variable x:TypeArguments="x:String" Name="str_filas" />
+                                            <Variable x:TypeArguments="x:String" Name="str_cuerpo" />
+                                          </Sequence.Variables>
                                           <sap:WorkflowViewStateService.ViewState>
                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                             </scg:Dictionary>
                                           </sap:WorkflowViewStateService.ViewState>
-                                          <ui:WriteRange WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dt_resultados]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="416,148" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Resultados" StartingCell="A1" WorkbookPath="[&quot;03 Arca de Noe\Temps\Mascotas_Resultados_&quot; &amp; str_id &amp; &quot;.xlsx&quot;]" />
-                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,168" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[&quot;Excel generado: Mascotas_Resultados_&quot; &amp; str_id &amp; &quot;.xlsx&quot;]" />
+                                          <ui:WriteRange WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dt_resultados]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="452,148" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Resultados" StartingCell="A1" WorkbookPath="[&quot;03 Arca de Noe\Temps\Mascotas_Resultados_&quot; &amp; str_id &amp; &quot;.xlsx&quot;]" />
+                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="452,177" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[&quot;Excel generado: Mascotas_Resultados_&quot; &amp; str_id &amp; &quot;.xlsx&quot;]" />
+                                          <Assign sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_19">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[str_filas]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_resultados]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="452,408" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+                                            <ui:ForEachRow.Body>
+                                              <ActivityAction x:TypeArguments="sd:DataRow">
+                                                <ActivityAction.Argument>
+                                                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="filaMail" />
+                                                </ActivityAction.Argument>
+                                                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,226" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <Assign sap:VirtualizedContainerService.HintSize="416,166" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:String">[str_filas]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:String">[str_filas &amp; "&lt;tr&gt;&lt;td&gt;" &amp; filaMail("Nombre").ToString &amp; "&lt;/td&gt;&lt;td&gt;" &amp; filaMail("Edad").ToString &amp; "&lt;/td&gt;&lt;td&gt;" &amp; filaMail("Raza").ToString &amp; "&lt;/td&gt;&lt;td&gt;" &amp; filaMail("Descripcion").ToString &amp; "&lt;/td&gt;&lt;td&gt;&lt;a href='" &amp; filaMail("Enlace").ToString &amp; "'&gt;Ver ficha&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"]</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </Sequence>
+                                              </ActivityAction>
+                                            </ui:ForEachRow.Body>
+                                          </ui:ForEachRow>
+                                          <Assign sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_20">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[str_cuerpo]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">[str_plantilla.Replace("$id", str_id).Replace("$animal", str_animal.ToLower).Replace("$sexo", str_sexo.ToLower).Replace("$edad", str_edad.ToLower).Replace("$tamaño", str_tamano.ToLower).Replace("$total", dt_resultados.Rows.Count.ToString).Replace("$resultados", str_filas)]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="[str_cuerpo]" DisplayName="Send SMTP Mail Message" Email="[str_usuario]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="452,171" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="True" Port="587" SecureConnection="Auto" SecurePassword="[sec_contrasena]" Server="smtp.gmail.com" Subject="[&quot;Arca de Noé - Resultados de la solicitud &quot; &amp; str_id]" To="mohadj234@gmail.com">
+                                            <ui:SendMail.Files>
+                                              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                                                <InArgument x:TypeArguments="x:String">[System.IO.Path.GetFullPath("03 Arca de Noe\Temps\Mascotas_Resultados_" &amp; str_id &amp; ".xlsx")]</InArgument>
+                                              </scg:List>
+                                            </ui:SendMail.Files>
+                                          </ui:SendMail>
                                         </Sequence>
                                       </If.Else>
                                     </If>
