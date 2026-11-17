@@ -30,7 +30,9 @@ const Indexador = (() => {
 
   // Carpetas que no se recorren (dependencias, compilados, configuración del editor...).
   // Además se saltan todas las que empiezan por punto (.git, .vscode, .idea...).
-  const CARPETAS_IGNORADAS = new Set(["node_modules", "target", "bin", "obj", "__pycache__"]);
+  // También la carpeta de esta misma app: si está dentro de tus apuntes, su código
+  // (que contiene los patrones del Resolver) saldría como "tu ejemplo" en todo.
+  const CARPETAS_IGNORADAS = new Set(["node_modules", "target", "bin", "obj", "__pycache__", "buscador-apuntes"]);
 
   // Archivos que no sirven de nada al buscar (package-lock.json es enorme y autogenerado)
   const ARCHIVOS_IGNORADOS = new Set(["package-lock.json"]);
@@ -38,6 +40,11 @@ const Indexador = (() => {
   const MAX_TEXTO = 2 * 1024 * 1024;  // archivos de texto mayores: solo se busca por nombre
   const MAX_PDF = 60 * 1024 * 1024;   // PDFs mayores: no se lee su texto
   const LOTE = 16;                    // archivos que se leen a la vez
+
+  // Librerías copiadas en los ejercicios (Bootstrap, SweetAlert, jQuery...): no son
+  // tu código. Se indexan para que la vista previa las cargue, pero no salen al buscar.
+  const RE_LIBRERIA = /\.min\.(js|css)$|(^|\/)(dist|vendor|lib|bootstrap|sweetalert2?|jquery)\/|(^|\/)(bootstrap|jquery|popper|sweetalert2?)[\w.-]*\.(js|css)$/i;
+  const esLibreria = (ruta) => RE_LIBRERIA.test(ruta);
 
   let siguienteId = 1;
 
@@ -105,6 +112,7 @@ const Indexador = (() => {
       ruta, carpeta, nombre,
       tipo: tipoDe(nombre),
       ext: extensionDe(nombre),
+      libreria: esLibreria(ruta),
       archivo,
       tamano: archivo.size,
       modificado: archivo.lastModified,

@@ -90,10 +90,19 @@ const Resolver = (() => {
       .map(raiz);
   }
 
-  // Librerías y archivos generados: estorban al comparar ejercicios
+  // Librerías (Bootstrap...) y archivos generados: estorban al comparar ejercicios
   function esRuido(e) {
-    const r = e.ruta.toLowerCase();
-    return /\.min\.(js|css)$/.test(r) || /(^|\/)(dist|vendor|lib|bootstrap|sweetalert2?|assets)\//.test(r);
+    return e.libreria || /(^|\/)assets\//i.test(e.ruta);
+  }
+
+  const TIPOS_EJERCICIO = new Set(["html", "js", "css", "datos"]);
+
+  // Orden de los archivos de un ejercicio: primero index.html y los .js
+  function prioridad(e) {
+    if (/^index\.html?$/i.test(e.nombre)) return 0;
+    if (e.tipo === "js") return 1;
+    if (e.tipo === "html") return 2;
+    return 3;
   }
 
   // Un ejercicio = la carpeta del ejemplo. Las subcarpetas js/, css/... cuentan como la de arriba.
@@ -153,7 +162,8 @@ const Resolver = (() => {
     // Ejercicios: una entrada por carpeta de proyecto con todo su código
     const porProyecto = new Map();
     for (const e of indice) {
-      if (e.tipo === "pdf" || e.tipo === "recurso" || !e.contenido || esRuido(e)) continue;
+      // Solo ejercicios web (HTML, JS, CSS y sus datos): el Java del servidor no ayuda aquí
+      if (!TIPOS_EJERCICIO.has(e.tipo) || !e.contenido || esRuido(e)) continue;
       const p = proyectoDe(e.carpeta);
       if (!porProyecto.has(p)) porProyecto.set(p, []);
       porProyecto.get(p).push(e);
@@ -184,7 +194,7 @@ const Resolver = (() => {
     const vistos = new Set();
     const candidatos = [...entradasPreferidas, ...indice];
     for (const e of candidatos) {
-      if (vistos.has(e) || !e.contenido || e.tipo === "pdf" || esRuido(e)) continue;
+      if (vistos.has(e) || !e.contenido || e.tipo !== "js" && e.tipo !== "html" || esRuido(e)) continue;
       vistos.add(e);
       const m = patron.firma.exec(e.contenido);
       if (!m) continue;
@@ -311,7 +321,7 @@ const Resolver = (() => {
       // Archivos del ejercicio: primero los que más palabras comparten
       const archivos = r.d.entradas
         .map((e) => ({ e, n: r.comunes.filter((c) => e.contenidoNorm && e.contenidoNorm.includes(c)).length }))
-        .sort((a, b) => b.n - a.n);
+        .sort((a, b) => prioridad(a.e) - prioridad(b.e) || b.n - a.n);
       const lista = el("div", "res-archivos");
       for (const { e } of archivos) {
         const b = el("button", "res-archivo", e.nombre);
@@ -333,7 +343,7 @@ const Resolver = (() => {
       const b = el("button", "res-teoria");
       b.type = "button";
       b.title = "Abrir el PDF en esa página";
-      b.append(el("span", "res-teoria-ruta", `${r.d.entrada.nombre} · pág. ${r.d.pagina}`));
+      b.append(el("span", "res-teoria-ruta", `${r.d.entrada.ruta} · pág. ${r.d.pagina}`));
       const p = el("span", "res-teoria-texto");
       p.append(resaltarRaices(recortar(r.d.texto, r.comunes), r.comunes));
       b.append(p);
@@ -343,5 +353,5 @@ const Resolver = (() => {
     contenedor.append(secT);
   }
 
-  return { resolver, pintar };
+  return { resolver, pintar, proyectoDe };
 })();

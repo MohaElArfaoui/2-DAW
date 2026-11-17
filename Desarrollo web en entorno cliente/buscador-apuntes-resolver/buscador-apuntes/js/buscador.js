@@ -35,7 +35,7 @@ const Buscador = (() => {
     const resultados = [];
 
     for (const entrada of indice) {
-      if (!opciones.tipos.has(entrada.tipo)) continue;
+      if (!opciones.tipos.has(entrada.tipo) || entrada.libreria) continue;
 
       let puntos = 0;
       let coincideTodo = true;

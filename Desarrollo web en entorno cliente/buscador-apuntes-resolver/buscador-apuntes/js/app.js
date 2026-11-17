@@ -295,7 +295,7 @@
     const cuenta = (tipo) => estado.indice.filter((e) => e.tipo === tipo).length;
     const pdfs = cuenta("pdf");
     const datos = cuenta("datos");
-    const codigo = estado.indice.length - pdfs - datos - cuenta("recurso");
+    const codigo = estado.indice.filter((e) => ["html", "css", "js", "java"].includes(e.tipo) && !e.libreria).length;
     return `${formato(codigo)} archivos de código, ${formato(datos)} de datos y ${formato(pdfs)} PDF en «${estado.fuente.nombre}»`;
   }
 
@@ -436,8 +436,11 @@
 
   const esCodigoODatos = (e) => e.tipo !== "pdf" && e.tipo !== "recurso";
 
+  // Mismo ejercicio = misma carpeta o sus subcarpetas js/, css/... (index.html + js/codigo.js)
+  const mismoEjercicio = (a, b) => Resolver.proyectoDe(a.carpeta) === Resolver.proyectoDe(b.carpeta);
+
   function pintarArchivo(entrada, linea) {
-    const hermanos = estado.indice.filter((e) => e.carpeta === entrada.carpeta && esCodigoODatos(e));
+    const hermanos = estado.indice.filter((e) => mismoEjercicio(e, entrada) && esCodigoODatos(e) && (!e.libreria || e === entrada));
     Vista.pintarVisor({
       entrada,
       hermanos,
@@ -475,8 +478,8 @@
   function htmlParaPrevia(entrada) {
     if (entrada.tipo === "html") return entrada;
     const visible = Previa.entradaActual();
-    if (visible && visible.carpeta === entrada.carpeta) return visible;
-    const htmls = estado.indice.filter((e) => e.carpeta === entrada.carpeta && e.tipo === "html");
+    if (visible && mismoEjercicio(visible, entrada)) return visible;
+    const htmls = estado.indice.filter((e) => mismoEjercicio(e, entrada) && e.tipo === "html");
     return htmls.find((e) => /^index\.html?$/i.test(e.nombre)) || htmls[0] || null;
   }
 
