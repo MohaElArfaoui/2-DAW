@@ -37,11 +37,11 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Listados</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Casas/Pisos en venta</a></li>
+            <li><a class="dropdown-item" href="#" id="listadoViviendas">Casas/Pisos en venta</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link" href="#">Transferir Offline-Online</a>
+          <a class="nav-link" href="#" id="transferir">Transferir Offline-Online</a>
         </li>
       </div>
     </div>
@@ -68,8 +68,8 @@
     <div class="form-group row" style="padding-top: 15px;">
       <label for="cuenta" class="col-4 col-form-label">Tipo:</label> 
       <div class="col-8">
-        <select class="form-select">
-          <option selected="true" disabled="disabled">seleccione una opción</option>
+        <select class="form-select" id="tipo">
+          <option value="" selected="true" disabled="disabled">seleccione una opción</option>
           <option value="Casa">Casa</option>
           <option value="Piso">Piso</option>
         </select>
@@ -78,19 +78,19 @@
     <div class="form-group row" style="padding-top: 15px;">
       <label for="saldo" class="col-4 col-form-label">Dirección:</label> 
       <div class="col-8">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" id="direccion">
       </div>
     </div>
     <div class="form-group row" style="padding-top: 15px;">
       <label for="saldo" class="col-4 col-form-label">Código Postal:</label> 
       <div class="col-8">
-        <input type="text" class="form-control" maxlength="5">
+        <input type="text" class="form-control" maxlength="5" id="cp">
       </div>
     </div>
     <div class="form-group row" style="padding-top: 15px;">
       <label for="saldo" class="col-4 col-form-label">Precio:</label> 
       <div class="col-8">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" id="precio">
       </div>
     </div>
 
@@ -102,8 +102,11 @@
   </div>
 </form>
 
-<script type="text/javascript" src="js/codigo.js"></script>
+<!-- Aquí se pinta el listado de viviendas -->
+<div id="listado" class="col-8" style="margin: 20px auto;"></div>
+
 <script type="text/javascript" src="js/clases.js"></script>
+<script type="text/javascript" src="js/codigo.js"></script>
 </body>
 
 </html>

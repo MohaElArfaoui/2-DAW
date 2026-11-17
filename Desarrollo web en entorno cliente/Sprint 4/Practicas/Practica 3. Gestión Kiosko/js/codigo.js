@@ -1,5 +1,8 @@
 document.getElementById("regArticulos").addEventListener("click", crearFormulario);
 document.getElementById("ventaArticulos").addEventListener("click", formularioVentas);
+document.getElementById("inicio").addEventListener("click", irAInicio);
+document.getElementById("informeAlmacen").addEventListener("click", informeAlmacen);
+document.getElementById("informeVenta").addEventListener("click", informeVentas);
 
 let lineasVenta=[];
 function validarNumeroEntero(unidades){
@@ -216,7 +219,7 @@ function pintarResumen(){
     total +=chuche.precioVenta;
   }
   const totalVenta=document.createElement("p");
-  totalVenta.innerHTML="Total: " + total;
+  totalVenta.innerHTML="Total: " + total.toFixed(2) + "€";
   resumenVenta.appendChild(totalVenta);
 
 }
@@ -298,6 +301,8 @@ function finalizarCompra(){
         mensajeError("conectar con el servidor para insertar");
       }); 
       }
+      // Paso 7: cuando ya se han mandado todas las líneas, se restan las unidades del almacén
+      actualizarExistencias();
     }
 
   })
@@ -307,8 +312,299 @@ function finalizarCompra(){
   });
 
 }
-function registrarOActualizarArticulo(){
+// Resta del almacén las unidades vendidas y deja la venta lista para empezar otra
+function actualizarExistencias(){
+  // Necesito las existencias actuales de cada artículo, así que primero pido todos (GET)
+  fetch("http://localhost:9999/buscarTodosLosArticulos", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+  .then(respuesta => {
+    if (respuesta.ok) {
+      return respuesta.json();
+    }
+    throw new Error(respuesta.status);
+  })
+  .then(articulos => {
+    for (const articulo of articulos) {
+      // Sumo las unidades vendidas de este artículo (puede estar en varias líneas)
+      let vendidas=0;
+      for (const linea of lineasVenta) {
+        if(linea.nombreArticulo==articulo.nombreArticulo){
+          vendidas += Number(linea.unidadesVendidas);
+        }
+      }
+      // Si de este artículo no se ha vendido nada, no hay que tocarlo
+      if(vendidas==0){
+        continue;
+      }
+      const datos={
+        nombreArticulo: articulo.nombreArticulo,
+        existenciasArticulo: articulo.existenciasArticulo - vendidas
+      };
+      fetch("http://localhost:9999/actualizarArticulo", {
+        method: "PUT",
+        body: JSON.stringify(datos),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(respuesta => respuesta.text())
+      .then(respuesta => {
+        if (respuesta !== "Ok") {
+          mensajeError("actualizar las existencias de");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        mensajeError("conectar con el servidor para actualizar");
+      });
+    }
 
+    // Venta terminada: mensaje, vacío las líneas y vuelvo a pintar el formulario limpio
+    Swal.fire({
+      title: "Venta registrada",
+      icon: "success",
+      confirmButtonText: "Ok"
+    });
+    lineasVenta=[];
+    formularioVentas();
+  })
+  .catch((error) => {
+    console.log(error);
+    mensajeError("consultar");
+  });
+}
+
+function validarPrecio(precio){
+  return /^\d+(\.\d{1,2})?$/.test(precio);
+}
+
+function registrarOActualizarArticulo(){
+  // 1. Leer los campos del formulario (los busco por su name)
+  const nombre=document.querySelector("input[name=nombreArticulo]").value.trim();
+  const categoria=document.querySelector("select[name=categoriaArticulo]").value;
+  const existencias=document.querySelector("input[name=existenciasArticulo]").value.trim();
+  const precio=document.querySelector("input[name=precioArticulo]").value.trim();
+
+  // 2. Validar
+  if(nombre=="" || existencias=="" || precio==""){
+    alert("Los campos no pueden estar vacíos");
+    return;
+  }
+  if(validarNumeroEntero(existencias)==false || existencias<=0){
+    alert("Las existencias deben ser un número entero mayor que 0");
+    return;
+  }
+  if(validarPrecio(precio)==false){
+    alert("El precio debe ser un número con máximo 2 decimales (ej: 1.50)");
+    return;
+  }
+
+  // 3. Miro si el artículo ya existe (GET de todos y busco por nombre)
+  fetch("http://localhost:9999/buscarTodosLosArticulos", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+  .then(respuesta => {
+    if (respuesta.ok) {
+      return respuesta.json();
+    }
+    throw new Error(respuesta.status);
+  })
+  .then(articulos => {
+    const existente=articulos.find(articulo => articulo.nombreArticulo.toLowerCase()==nombre.toLowerCase());
+
+    if(existente){
+      // 4a. YA EXISTE -> PUT sumando las existencias nuevas a las que ya tenía
+      const datos={
+        nombreArticulo: existente.nombreArticulo,
+        existenciasArticulo: existente.existenciasArticulo + Number(existencias)
+      };
+      fetch("http://localhost:9999/actualizarArticulo", {
+        method: "PUT",
+        body: JSON.stringify(datos),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(respuesta => respuesta.text())
+      .then(respuesta => {
+        if (respuesta === "Ok") {
+          mensajeExito("actualizado");
+          document.getElementById("frm").reset();
+        } else {
+          mensajeError("actualizar");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        mensajeError("conectar con el servidor para actualizar");
+      });
+
+    } else {
+      // 4b. NO EXISTE -> POST con todos los datos
+      const datos={
+        nombreArticulo: nombre,
+        categoriaArticulo: categoria,
+        existenciasArticulo: Number(existencias),
+        precioArticulo: Number(precio)
+      };
+      fetch("http://localhost:9999/crearArticulo", {
+        method: "POST",
+        body: JSON.stringify(datos),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(respuesta => respuesta.text())
+      .then(respuesta => {
+        if (respuesta === "Ok") {
+          mensajeExito("registrado");
+          document.getElementById("frm").reset();
+        } else {
+          mensajeError("registrar");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        mensajeError("conectar con el servidor para insertar");
+      });
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    mensajeError("consultar");
+  });
+}
+
+// INICIO: deja la aplicación como al cargar la página
+function irAInicio(){
+  document.getElementById("contenido").innerHTML="";
+  lineasVenta=[];
+}
+
+// Crea una tabla con su cabecera (thead oscuro) y devuelve la tabla y el tbody para rellenarlo
+function crearTabla(titulos){
+  const tabla=document.createElement("table");
+  tabla.className="table";
+  const cabecera=document.createElement("thead");
+  cabecera.className="table-dark";
+  const fila=document.createElement("tr");
+  for (const titulo of titulos) {
+    const th=document.createElement("th");
+    th.innerHTML=titulo;
+    fila.appendChild(th);
+  }
+  cabecera.appendChild(fila);
+  tabla.appendChild(cabecera);
+  const cuerpo=document.createElement("tbody");
+  tabla.appendChild(cuerpo);
+  return { tabla: tabla, cuerpo: cuerpo };
+}
+
+// Añade una fila al tbody con los textos que le pase
+function crearFila(cuerpo, textos){
+  const fila=document.createElement("tr");
+  for (const texto of textos) {
+    const td=document.createElement("td");
+    td.innerHTML=texto;
+    fila.appendChild(td);
+  }
+  cuerpo.appendChild(fila);
+  return fila;
+}
+
+// INFORME ALMACÉN: todos los artículos, verde si hay más de 10 y rojo si hay 10 o menos
+function informeAlmacen(){
+  const content=document.getElementById("contenido");
+  content.innerHTML="";
+
+  fetch("http://localhost:9999/buscarTodosLosArticulos", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+  .then(respuesta => {
+    if (respuesta.ok) {
+      return respuesta.json();
+    }
+    throw new Error(respuesta.status);
+  })
+  .then(articulos => {
+    const titulo=document.createElement("h2");
+    titulo.innerHTML="Informe Almacén";
+    content.appendChild(titulo);
+
+    const t=crearTabla(["Artículo", "Categoría", "Existencias"]);
+    for (const articulo of articulos) {
+      const fila=crearFila(t.cuerpo, [articulo.nombreArticulo, articulo.categoriaArticulo, articulo.existenciasArticulo]);
+      if(articulo.existenciasArticulo>10){
+        fila.className="table-success";   // verde
+      } else {
+        fila.className="table-danger";    // rojo
+      }
+    }
+    content.appendChild(t.tabla);
+  })
+  .catch((error) => {
+    console.log(error);
+    mensajeError("consultar");
+  });
+}
+
+// INFORME VENTAS: una fila por venta (idVenta + su total) y debajo el total de todas
+function informeVentas(){
+  const content=document.getElementById("contenido");
+  content.innerHTML="";
+
+  fetch("http://localhost:9999/buscarTodasLasVentas", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+  .then(respuesta => {
+    if (respuesta.ok) {
+      return respuesta.json();
+    }
+    throw new Error(respuesta.status);
+  })
+  .then(lineas => {
+    // En la BD hay una fila por cada LÍNEA. Agrupo las líneas que tienen el mismo idVentas
+    const ventas=[];   // aquí guardo {idVentas, total}
+    for (const linea of lineas) {
+      const venta=ventas.find(v => v.idVentas==linea.idVentas);
+      if(venta){
+        venta.total += linea.precioVenta;          // esa venta ya estaba: le sumo la línea
+      } else {
+        ventas.push({ idVentas: linea.idVentas, total: linea.precioVenta });   // venta nueva
+      }
+    }
+
+    const titulo=document.createElement("h2");
+    titulo.innerHTML="Informe Ventas";
+    content.appendChild(titulo);
+
+    const t=crearTabla(["ID Venta", "Total venta"]);
+    let totalGeneral=0;
+    for (const venta of ventas) {
+      crearFila(t.cuerpo, [venta.idVentas, venta.total.toFixed(2) + "€"]);
+      totalGeneral += venta.total;
+    }
+    const filaTotal=crearFila(t.cuerpo, ["TOTAL", totalGeneral.toFixed(2) + "€"]);
+    filaTotal.className="fw-bold";
+    content.appendChild(t.tabla);
+  })
+  .catch((error) => {
+    console.log(error);
+    mensajeError("consultar");
+  });
 }
 
 // Alerta de éxito (reemplaza a alert())
