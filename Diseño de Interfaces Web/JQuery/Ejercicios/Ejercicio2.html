@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocultar texto</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <p id="texto">texto</p>
+    <button id="boton" type="button">Botón</button>
+
+    <script>
+        $(document).ready(function () {
+            $("#boton").click(function () {
+                $("#texto").hide();
+            });
+        });
+    </script>
+</body>
+</html>
