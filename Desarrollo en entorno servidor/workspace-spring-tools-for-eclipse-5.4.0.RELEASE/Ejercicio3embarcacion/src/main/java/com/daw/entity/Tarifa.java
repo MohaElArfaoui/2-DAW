@@ -34,4 +34,46 @@ public class Tarifa {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "id_crucero", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name="fk_tarifa_crucero"))
 	private Crucero crucero;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public BigDecimal getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
+	}
+
+	public Integer getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public Crucero getCrucero() {
+		return crucero;
+	}
+
+	public void setCrucero(Crucero crucero) {
+		this.crucero = crucero;
+	}
+	
+	
 }

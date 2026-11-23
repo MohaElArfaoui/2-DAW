@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Efectivo")
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name="id") //Cuando es JOInED
 @DiscriminatorValue(value = "Efectivo") //en el hijo
 public class Efectivo extends Empleado{
 

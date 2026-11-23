@@ -28,4 +28,6 @@ public class Agente {
 	@JsonIgnore
 	private List<Reserva> reservasHabitacionAgente;
 	
+	
+	
 }

@@ -32,4 +32,46 @@ public class ParadaPuerto {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name="id_puerto", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name="fk_parada_puerto_puerto"))
 	private Puerto puerto;
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+
+	public Crucero getCrucero() {
+		return crucero;
+	}
+
+
+	public void setCrucero(Crucero crucero) {
+		this.crucero = crucero;
+	}
+
+
+	public Puerto getPuerto() {
+		return puerto;
+	}
+
+
+	public void setPuerto(Puerto puerto) {
+		this.puerto = puerto;
+	}
+	
+	
 }
