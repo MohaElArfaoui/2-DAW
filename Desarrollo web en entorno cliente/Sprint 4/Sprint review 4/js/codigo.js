@@ -1,6 +1,6 @@
 document
   .getElementById("gestionSesion")
-  .addEventListener("click", mostrarInicioSesion);
+  .addEventListener("click", gestionarSesion);
 document
   .getElementById("regUsuario")
   .addEventListener("click", mostrarRegistroUsuario);
@@ -11,6 +11,7 @@ document
 document.getElementById("btnRegistrarUsuario").addEventListener("click",registrarUsuario);
 
 document.getElementById("capaPeliculas").addEventListener("click", mostrarInfoPelis);
+
 
 
 ocultar();
@@ -26,50 +27,16 @@ function ocultar() {
 
 }
 
-function mostrarInfoPeli1(){
-      document.getElementById("detallesPelicula").style.display = "flex";
-    return true;
-}
-function mostrarInfoPeli2(){
-      document.getElementById("detallesPelicula").style.display = "flex";
-    return true;
-}
-function mostrarInfoPeli3(){
-      document.getElementById("detallesPelicula").style.display = "flex";
-    return true;
-}
-function mostrarInfoPeli4(){
-      document.getElementById("detallesPelicula").style.display = "flex";
-    return true;
-}
 
-function mostrarInfoPelis(){
 
-    const peliculaId=0;
+function mostrarInfoPelis(event){
 
-    const pelicula1=document.querySelector("class[data-idPelicula=1]")
-    pelicula1.addEventListener("click",mostrarInfoPeli1)
-    
-    const pelicula2=document.querySelector("class[data-idPelicula=2]")
-    pelicula2.addEventListener("click",mostrarInfoPeli2)
-    const pelicula3=document.querySelector("class[data-idPelicula=3]")
-    pelicula3.addEventListener("click",mostrarInfoPeli3)
-    const pelicula4=document.querySelector("class[data-idPelicula=4]")
-    pelicula4.addEventListener("click",mostrarInfoPeli4)
-    
-    if(pelicula1 == true){
-        peliculaId=pelicula1
+  
+    let peliculaId=event.target.dataset.idpelicula;
+  
+    if (peliculaId == undefined || peliculaId == "") {
+      return;
     }
-    if(pelicula2 == true){
-        peliculaId=pelicula1
-    }
-    if(pelicula3 == true){
-        peliculaId=pelicula1
-    }
-    if(pelicula4 == true){
-        peliculaId=pelicula1
-    }
-
 
 fetch(
     "http://localhost:9999/buscarPeliculaPorId?idPelicula=" + peliculaId,
@@ -86,47 +53,55 @@ fetch(
       }
       throw new Error(respuesta.status);
     })
-    .then((usuario) => {
-      if (usuario) {
+    .then((pelicula) => {
+      if (pelicula) {
         ocultar();
+        document.getElementById("capaPeliculas").style.display = "flex";
         document.getElementById("detallesPelicula").style.display = "flex";
+        const titulo=document.getElementById("tituloPelicula");
+        titulo.innerHTML=pelicula.titulo;
+        const sinopsis=document.getElementById("sinopsisPelicula");
+        sinopsis.innerHTML=pelicula.sinopsis;
+        const duracion=document.getElementById("duracionPelicula");
+        duracion.innerHTML=pelicula.duracion;
       }
     })
     .catch((error) => {
       console.log("Error" + error + " Usuario no encontrado");
-      alert("encontrar");
+      alert("No se han podido cargar los detalles de la película");
     });
 
 }
 
-function mostrarInicioSesion() {
-  ocultar();
-  document.getElementById("formLoginUsuario").style.display = "flex";
-}
 
 function mostrarRegistroUsuario() {
   ocultar();
   document.getElementById("formUsuario").style.display = "flex";
 }
 
+function gestionarSesion(){
+     const botonInicio = document.getElementById("gestionSesion");
+
+  if (botonInicio.innerHTML == "Cerrar Sesión") {
+    ocultar();
+    botonInicio.innerHTML = "Iniciar Sesión";
+  } else {
+    ocultar();
+    document.getElementById("formLoginUsuario").style.display = "flex";
+  }
+}
+
+
 function loginUsuario() {
   if (validarLoginUsuario() == false) {
     return;
   }
-  const botonInicio = document.getElementById("gestionSesion");
-  botonInicio.innerHTML = "Cerrar Sesión";
+
 
   
   const nombreUsuario = document.getElementById("usuarioLogin").value;
   const pwdUsuario = document.getElementById("contrasenaLogin").value;
   
-  if (nombreUsuario == "") {
-      return;
-    }
-    if (pwdUsuario == "") {
-        return;
-    }
-
 
 
   fetch(
@@ -150,12 +125,14 @@ function loginUsuario() {
     .then((usuario) => {
       if (usuario) {
         ocultar();
+        const botonInicio = document.getElementById("gestionSesion");
+        botonInicio.innerHTML = "Cerrar Sesión";
         document.getElementById("capaPeliculas").style.display = "flex";
       }
     })
     .catch((error) => {
       console.log("Error" + error + " Usuario no encontrado");
-      alert("encontrar");
+      alert("Usuario o contraseña incorrectos");
     });
 }
 
@@ -195,7 +172,7 @@ function registrarUsuario() {
         ocultar();
         document.getElementById("formLoginUsuario").style.display = "flex";
       } else {
-        alert("insertar");
+        alert("No se ha podido registrar el usuario");
       }
     })
     .catch((error) => {
