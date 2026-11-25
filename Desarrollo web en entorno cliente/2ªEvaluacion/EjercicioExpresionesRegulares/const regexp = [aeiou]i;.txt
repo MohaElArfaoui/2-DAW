@@ -1,0 +1,3 @@
+ const regexp = /[aeiou]/i;
+
+Que contenga vocales y no importa si es mayuscula o miniscula
